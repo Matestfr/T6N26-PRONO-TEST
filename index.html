@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronos XV de France 2026</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --ffr-blue: #00204d;
+            --ffr-action: #2b95ff;
+            --ffr-red: #e1000f;
+            --white: #ffffff;
+            --grey-bg: #f0f2f5;
+            --banner-overlay: rgba(0, 32, 77, 0.85);
+            
+            /* Couleurs Tendance */
+            --trend-up: #2e7d32;
+            --trend-down: #c62828;
+            --trend-stable: #999;
+            
+            /* Couleurs Médailles */
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --bronze: #CD7F32;
+            
+            /* Bordures Pronos */
+            --border-win: #2e7d32;
+            --border-draw: #f57f17;
+            --border-loss: #c62828;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--grey-bg);
+            margin: 0;
+            padding-bottom: 120px;
+            color: #1a1a1a;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--ffr-blue); 
+            height: 70px; padding: 0 40px; display: flex; align-items: center; justify-content: flex-start; gap: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000;
+        }
+        .header-logo { height: 45px; filter: brightness(0) invert(1); }
+        .header-title { color: var(--white); font-weight: 900; font-size: 1.2rem; text-transform: uppercase; font-family: 'Roboto Condensed', sans-serif; }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        .section-headline { margin-top: 40px; margin-bottom: 25px; font-family: 'Roboto Condensed', sans-serif; font-size: 2rem; font-weight: 700; text-transform: uppercase; border-left: 6px solid var(--ffr-blue); padding-left: 15px; }
+
+        /* --- MATCHS & RESULTATS --- */
+        .match-banner { background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Stade_de_France_inside.jpg/1200px-Stade_de_France_inside.jpg'); background-size: cover; background-position: center; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; padding: 25px 40px; margin-bottom: 20px; color: var(--white); box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.2s ease; }
+        .match-banner:hover { transform: translateY(-3px); }
+        .banner-left { width: 15%; font-size: 1.4rem; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; color: #eee; }
+        .banner-center { width: 60%; display: flex; flex-direction: column; align-items: center; }
+        .banner-right { width: 25%; display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
+        .competition-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; margin-bottom: 12px; }
+        .duel-row { display: flex; align-items: center; justify-content: center; gap: 25px; width: 100%; }
+        .team-name { font-size: 1.4rem; font-weight: 500; text-transform: uppercase; width: 120px; } .team-name.right { text-align: right; } .team-name.left { text-align: left; }
+        .flag-icon { width: 65px; height: 65px; border-radius: 50%; border: 3px solid var(--white); object-fit: cover; }
+        .match-info-center { text-align: center; margin: 0 10px; min-width: 140px; }
+        .match-date { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; color: var(--ffr-action); }
+        .match-time { font-size: 1.6rem; font-weight: 900; line-height: 1.2; }
+        .stadium-name { font-size: 0.8rem; margin-top: 12px; opacity: 0.7; text-transform: uppercase; font-weight: 500; }
+        .btn-prono { background-color: var(--ffr-action); color: white; padding: 12px 25px; font-size: 0.95rem; font-weight: 700; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: background 0.2s; white-space: nowrap; }
+        .btn-prono:hover { background-color: #1a7ec9; }
+        .countdown-timer { font-family: 'Roboto Mono', monospace; font-size: 0.9rem; padding: 6px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; background: rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; }
+
+        /* Style Spécifique Match Terminé (Résultat Officiel) */
+        .official-result-row {
+            display: flex; gap: 20px; font-size: 0.9rem; background: rgba(0,0,0,0.4); 
+            padding: 10px 20px; border-radius: 20px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3);
+        }
+        .official-item { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+        .official-item img { width: 20px; border-radius: 2px; }
+
+        /* Accordéon Résultats */
+        .result-banner { border-left: 6px solid var(--ffr-action); cursor: pointer; margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+        .final-score { font-size: 2.2rem; font-weight: 900; background: rgba(0,0,0,0.3); padding: 5px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); min-width: 140px; text-align: center; }
+        .result-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: var(--white); border-radius: 0 0 8px 8px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .result-details.open { max-height: 2500px; }
+        
+        .player-row-complex { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 1px solid #eee; cursor: pointer; transition: background 0.2s; }
+        .player-row-complex:hover { background: #f9f9f9; }
+        .p-info { display: flex; align-items: center; gap: 15px; width: 25%; }
+        .p-pic { width: 45px; height: 45px; border-radius: 50%; background: #eee; background-size: cover; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .p-name { font-weight: 700; color: var(--ffr-blue); font-size: 1rem; }
+        .p-data { width: 55%; display: flex; align-items: center; justify-content: center; gap: 30px; }
+        .score-neutral { background: #f0f2f5; color: #333; padding: 8px 15px; border-radius: 6px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 1.2rem; min-width: 80px; text-align: center; }
+        .extra-info { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #555; font-weight: 500; }
+        .info-item { display: flex; align-items: center; gap: 8px; }
+        .flag-mini { width: 18px; height: 13px; border-radius: 2px; object-fit: cover; vertical-align: middle; }
+        .points-box { display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: 5px; padding: 8px 15px; border-radius: 8px; background: #fff; border: 3px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.1); min-width: 70px; }
+        .border-green { border-color: #2e7d32; color: #2e7d32; }
+        .border-orange { border-color: #f57f17; color: #f57f17; }
+        .border-red { border-color: #c62828; color: #c62828; }
+        .pts-val { font-weight: 900; font-size: 1.3rem; line-height: 1; }
+        .pts-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; }
+
+        /* --- CLASSEMENT & FILTRES --- */
+        .podium-area { display: flex; justify-content: center; align-items: flex-end; gap: 20px; margin-bottom: 30px; padding-top: 20px; }
+        .podium-card { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; cursor: pointer; transition: transform 0.2s; }
+        .podium-card:hover { transform: translateY(-5px); }
+        .rank-circle { border-radius: 50%; background-size: cover; background-position: center; background-color: #ddd; box-shadow: 0 10px 20px rgba(0,0,0,0.15); position: relative; margin-bottom: 15px; transition: transform 0.3s; }
+        .rank-1 .rank-circle { width: 130px; height: 130px; border: 5px solid var(--gold); z-index: 2; }
+        .rank-1 { transform: translateY(-20px); }
+        .rank-2 .rank-circle { width: 100px; height: 100px; border: 4px solid var(--silver); }
+        .rank-3 .rank-circle { width: 100px; height: 100px; border: 4px solid var(--bronze); }
+        .rank-badge { position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; color: white; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; border: 2px solid white; }
+        .rank-1 .rank-badge { background: var(--gold); width: 35px; height: 35px; font-size: 1.1rem; }
+        .rank-2 .rank-badge { background: var(--silver); }
+        .rank-3 .rank-badge { background: var(--bronze); }
+        .crown-icon { position: absolute; top: -25px; left: 50%; transform: translateX(-50%) rotate(10deg); font-size: 2rem; color: var(--gold); filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
+        .podium-name { font-weight: 900; font-size: 1.1rem; color: var(--ffr-blue); margin-bottom: 5px; text-transform: uppercase; }
+        .podium-pts { font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 1.4rem; color: #1a1a1a; }
+
+        .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .filter-pill { padding: 8px 16px; border-radius: 20px; background: #fff; border: 1px solid #ddd; font-size: 0.9rem; font-weight: 700; cursor: pointer; color: #666; transition: all 0.2s; }
+        .filter-pill:hover { background: #f0f0f0; }
+        .filter-pill.active { background: var(--ffr-blue); color: white; border-color: var(--ffr-blue); box-shadow: 0 4px 10px rgba(0, 32, 77, 0.2); }
+
+        .leaderboard-list { background: var(--white); border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow: hidden; }
+        .lb-header { display: flex; padding: 15px 20px; background: #f8f9fa; font-size: 0.7rem; font-weight: 700; color: #999; text-transform: uppercase; align-items: center; }
+        .lb-row { display: flex; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f0f0f0; transition: background 0.1s; font-size: 0.9rem; cursor: pointer; }
+        .lb-row:hover { background: #fafafa; }
+        .col-rank { width: 8%; font-weight: 900; font-size: 1rem; color: #ccc; text-align: center; display: flex; justify-content: center; align-items: center; gap: 5px; }
+        .rank-top { color: var(--ffr-blue); }
+        .col-user { width: 30%; display: flex; align-items: center; gap: 10px; }
+        .lb-avatar { width: 32px; height: 32px; border-radius: 50%; background: #eee; background-size: cover; min-width: 32px; }
+        .lb-name { font-weight: 700; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: underline; text-decoration-color: transparent; transition: text-decoration 0.2s; }
+        .lb-row:hover .lb-name { text-decoration-color: var(--ffr-blue); }
+        .col-stat { width: 12%; text-align: center; color: #555; }
+        .col-pts { width: 15%; text-align: right; font-weight: 900; font-size: 1.1rem; color: var(--ffr-blue); }
+        .trend-icon { font-size: 0.7rem; }
+        .t-up { color: var(--trend-up); }
+        .t-down { color: var(--trend-down); }
+        .t-stable { color: var(--trend-stable); opacity: 0.5; }
+
+        /* --- STATS STYLE FFR --- */
+        .profile-container { background-color: var(--white); min-height: 80vh; padding-bottom: 20px; }
+        .profile-header { background: linear-gradient(135deg, var(--ffr-blue) 0%, #001230 60%, var(--ffr-red) 100%); height: 240px; position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column; color: white; border-bottom: 5px solid var(--white); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .profile-selector { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; outline: none; cursor: pointer; }
+        .profile-selector option { color: black; }
+        .profile-avatar-xl { width: 110px; height: 110px; border-radius: 50%; border: 5px solid var(--white); background-size: cover; background-position: center; box-shadow: 0 0 20px rgba(0,0,0,0.3); margin-bottom: 10px; position: relative; z-index: 2; }
+        .profile-name { font-size: 2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; font-family: 'Roboto Condensed', sans-serif; letter-spacing: 1px; }
+        
+        .stats-summary-card { background: var(--white); margin: -30px 20px 20px 20px; border-radius: 12px; padding: 25px; color: var(--ffr-blue); box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
+        .big-points-val { font-size: 3.5rem; font-weight: 900; line-height: 1; font-family: 'Roboto Condensed', sans-serif; color: var(--ffr-blue); }
+        .big-points-label { font-size: 1rem; opacity: 0.6; font-weight: 700; color: #1a1a1a; }
+        .mini-stat { font-size: 0.9rem; opacity: 0.8; color: #333; }
+
+        .stat-circles-row { display: flex; justify-content: space-around; padding: 0 10px; margin-top: 30px; margin-bottom: 30px; }
+        .stat-circle-card { display: flex; flex-direction: column; align-items: center; width: 30%; }
+        .circle-progress { width: 75px; height: 75px; border-radius: 50%; background: conic-gradient(var(--c-color) var(--c-val), #eee 0deg); display: flex; justify-content: center; align-items: center; margin-bottom: 10px; position: relative; }
+        .circle-progress::before { content: ""; position: absolute; width: 65px; height: 65px; background: white; border-radius: 50%; }
+        .circle-inner { position: relative; z-index: 1; text-align: center; }
+        .circle-num { font-weight: 900; font-size: 1.3rem; color: #333; }
+        .circle-pct { font-size: 0.7rem; color: #888; display: block; font-weight: 700;}
+        .circle-label { font-size: 0.7rem; text-align: center; font-weight: 700; color: #555; text-transform: uppercase; }
+
+        .analysis-card { background: #e3f2fd; margin: 0 20px 30px 20px; padding: 20px; border-radius: 12px; border-left: 5px solid var(--ffr-action); position: relative; }
+        .analysis-title { font-weight: 900; color: var(--ffr-action); text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .analysis-text { font-style: italic; color: #555; font-size: 0.95rem; line-height: 1.4; }
+        
+        .recap-list { margin: 0 20px 40px 20px; }
+        .recap-title { font-size: 1rem; font-weight: 900; color: var(--ffr-blue); margin-bottom: 15px; text-transform: uppercase; border-left: 4px solid var(--ffr-red); padding-left: 10px; }
+        .recap-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .recap-match { font-weight: 700; width: 45%; }
+        .recap-prono { width: 30%; text-align: center; color: #555; font-weight: 700; }
+        .recap-pts { width: 20%; text-align: right; font-weight: 900; }
+        .pts-badge-sm { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; color: white; display: inline-block; min-width: 30px; text-align: center; }
+        .pts-pending { background: #eee; color: #999; font-size: 0.7rem; font-style: italic; padding: 4px 8px; border-radius: 4px; }
+
+        /* --- DOCK --- */
+        .floating-dock-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2000; width: auto; }
+        .floating-dock { background-color: var(--ffr-blue); padding: 8px 10px; border-radius: 50px; display: flex; align-items: center; gap: 5px; box-shadow: 0 10px 30px rgba(0, 32, 77, 0.5); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(10px); }
+        .nav-pill { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 30px; color: rgba(255,255,255,0.5); text-decoration: none; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: all 0.3s; cursor: pointer; }
+        .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+        .nav-pill.active { background-color: var(--white); color: var(--ffr-blue); box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .nav-pill i { font-size: 1.1rem; } .nav-pill.active i { color: var(--ffr-red); }
+
+        @media (max-width: 900px) {
+            .match-banner { flex-direction: column; text-align: center; gap: 15px; }
+            .banner-left, .banner-center, .banner-right { width: 100%; align-items: center; }
+            .lb-header { font-size: 0.6rem; }
+            .col-stat { font-size: 0.7rem; width: 14%; }
+            .col-user { width: 25%; }
+            .recap-row { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://upload.wikimedia.org/wikipedia/fr/3/30/Logo_F%C3%A9d%C3%A9ration_Fran%C3%A7aise_Rugby_2019.svg" class="header-logo" alt="FFR">
+        <div class="header-title">Pronos 2026</div>
+    </header>
+
+    <div class="container">
+        
+        <h2 class="section-headline" id="main-title">XV Masculin - Tournoi des Six Nations 2026</h2>
+
+        <div id="tab-matchs">
+            <div class="match-banner"><div class="banner-left">Journée 1</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">5 FÉV. 2026</div><div class="match-time">21H10</div></div><img src="https://flagcdn.com/w160/ie.png" class="flag-icon" alt="IE"><span class="team-name left">Irlande</span></div><div class="stadium-name">Saint-Denis (Stade de France)</div></div><div class="banner-right"><a href="#" class="btn-prono"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j1">--:--:--:--</div></div></div>
+            <div class="match-banner"><div class="banner-left">Journée 2</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">Galles</span><img src="https://flagcdn.com/w160/gb-wls.png" class="flag-icon" alt="WAL"><div class="match-info-center"><div class="match-date">15 FÉV. 2026</div><div class="match-time">16H00</div></div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div><div class="stadium-name">Cardiff (Principality Stadium)</div></div><div class="banner-right"><a href="#" class="btn-prono"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-29</div></div></div>
+            <div class="match-banner"><div class="banner-left">Journée 3</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">22 FÉV. 2026</div><div class="match-time">16H10</div></div><img src="https://flagcdn.com/w160/it.png" class="flag-icon" alt="IT"><span class="team-name left">Italie</span></div><div class="stadium-name">Lille (Decathlon Arena)</div></div><div class="banner-right"><a href="#" class="btn-prono"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-36</div></div></div>
+            <div class="match-banner"><div class="banner-left">Journée 4</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">Écosse</span><img src="https://flagcdn.com/w160/gb-sct.png" class="flag-icon" alt="SCO"><div class="match-info-center"><div class="match-date">8 MARS 2026</div><div class="match-time">16H00</div></div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div><div class="stadium-name">Édimbourg (Murrayfield)</div></div><div class="banner-right"><a href="#" class="btn-prono"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-50</div></div></div>
+            <div class="match-banner"><div class="banner-left">Journée 5</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">14 MARS 2026</div><div class="match-time">21H10</div></div><img src="https://flagcdn.com/w160/gb-eng.png" class="flag-icon" alt="ENG"><span class="team-name left">Angleterre</span></div><div class="stadium-name">Saint-Denis (Stade de France)</div></div><div class="banner-right"><a href="#" class="btn-prono"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-56</div></div></div>
+        </div>
+
+        <div id="tab-results" style="display:none;">
+            <div class="result-banner match-banner" onclick="toggleDetails('detail-1', this)">
+                <div class="banner-left">Test</div>
+                <div class="banner-center">
+                    <div class="competition-tag">Match Amical - Automne 2025</div>
+                    <div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="final-score">30 - 29</div><img src="https://flagcdn.com/w160/nz.png" class="flag-icon" alt="NZ"><span class="team-name left">N. Zélande</span></div>
+                    
+                    <div class="official-result-row">
+                        <div class="official-item">🏉 1er Essai: <img src="https://flagcdn.com/w20/fr.png" alt="FR"></div>
+                        <div class="official-item">🏅 HOM: Alldritt</div>
+                    </div>
+                    
+                    <div class="stadium-name">Stade de France (Terminé)</div>
+                </div>
+                <div class="banner-right" style="justify-content:center;"><i class="fas fa-chevron-down toggle-icon" style="font-size:1.5rem;"></i></div>
+            </div>
+
+            <div id="detail-1" class="result-details">
+                </div>
+        </div>
+
+        <div id="tab-classement" style="display:none;">
+            <div class="filter-bar">
+                <div class="filter-pill active" onclick="updateLeaderboard('all', this)">Général</div>
+                <div class="filter-pill" onclick="updateLeaderboard('J1', this)">J1</div><div class="filter-pill" onclick="updateLeaderboard('J2', this)">J2</div>
+                <div class="filter-pill" onclick="updateLeaderboard('J3', this)">J3</div><div class="filter-pill" onclick="updateLeaderboard('J4', this)">J4</div><div class="filter-pill" onclick="updateLeaderboard('J5', this)">J5</div>
+            </div>
+
+            <div class="podium-area" id="podium-container"></div>
+
+            <div class="leaderboard-list">
+                <div class="lb-header"><span class="col-rank">Rg</span><span class="col-user">Joueur</span><span class="col-stat">🎯 Exact/Bon</span><span class="col-stat">📉 Écart</span><span class="col-stat">🏉 Essai</span><span class="col-stat">🏅 HOM</span><span class="col-pts">Total</span></div>
+                <div id="leaderboard-rows"></div>
+            </div>
+        </div>
+
+        <div id="tab-stats" style="display:none;">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <select class="profile-selector" id="profileSelect" onchange="loadProfile(this.value)"></select>
+                    <div class="profile-avatar-xl" id="p-avatar"></div>
+                    <div class="profile-name" id="p-name"></div>
+                </div>
+
+                <div class="stats-summary-card">
+                    <div><div class="big-points-val" id="p-total"></div><div class="big-points-label">POINTS TOTAL</div></div>
+                    <div class="mini-stats-col">
+                        <div class="mini-stat"><i class="fas fa-list-ol"></i> Rang: <b id="p-rank"></b></div>
+                        <div class="mini-stat"><i class="fas fa-check-double"></i> Pronos: <b>5</b></div>
+                    </div>
+                </div>
+
+                <div class="stat-circles-row">
+                    <div class="stat-circle-card"><div class="circle-progress" style="--c-color: #4caf50; --c-val: 70%;"><div class="circle-inner"><span class="circle-num" id="p-bons"></span><span class="circle-pct">Bons</span></div></div><div class="circle-label">🎯 Précision</div></div>
+                    <div class="stat-circle-card"><div class="circle-progress" style="--c-color: #ff9800; --c-val: 40%;"><div class="circle-inner"><span class="circle-num" id="p-essais"></span><span class="circle-pct">Trouvés</span></div></div><div class="circle-label">🏉 1er Essai</div></div>
+                    <div class="stat-circle-card"><div class="circle-progress" style="--c-color: #e91e63; --c-val: 25%;"><div class="circle-inner"><span class="circle-num" id="p-hom"></span><span class="circle-pct">Trouvés</span></div></div><div class="circle-label">🏅 H.O.M</div></div>
+                </div>
+
+                <div class="analysis-card">
+                    <div class="analysis-title"><i class="fas fa-search-plus lison-icon"></i> L'œil de Lison</div>
+                    <div class="analysis-text" id="p-analysis"></div>
+                </div>
+
+                <div class="recap-list">
+                    <div class="recap-title">Historique 6 Nations</div>
+                    <div id="p-history-rows"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="floating-dock-container">
+        <nav class="floating-dock">
+            <div class="nav-pill active" data-target="matchs"><i class="fas fa-ticket-alt"></i><span>Matchs</span></div>
+            <div class="nav-pill" data-target="results"><i class="fas fa-clipboard-list"></i><span>Résultats</span></div>
+            <div class="nav-pill" data-target="classement"><i class="fas fa-list-ol"></i><span>Class.</span></div>
+            <div class="nav-pill" data-target="stats"><i class="fas fa-user-circle"></i><span>Stats</span></div>
+        </nav>
+    </div>
+
+    <script>
+        // --- 1. DATA (Avec structure pour le calcul cumulatif) ---
+        // dailyPoints: [J1, J2, J3, J4, J5]
+        const playersDB = [
+            { name: "Thomas", dailyPoints: [18, 15, 0, 0, 0], exact:6, good:32, gap:120, essais:5, hom:3, 
+              matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"},
+              img: "https://ui-avatars.com/api/?name=Thomas&background=00204d&color=fff", analysis: "\"Thomas réalise un début de tournoi exceptionnel. Sa lecture du jeu est chirurgicale.\"" },
+            
+            { name: "Julie", dailyPoints: [15, 12, 0, 0, 0], exact:4, good:33, gap:140, essais:4, hom:2, 
+              matchTest: {score:"20-20", pts:1, try:"nz", hom:"Savea"},
+              img: "https://ui-avatars.com/api/?name=Julie&background=2b95ff&color=fff", analysis: "\"Julie assure les points bonus défensifs mais manque de risque sur les gros scores.\"" },
+            
+            { name: "Alex", dailyPoints: [12, 18, 0, 0, 0], exact:6, good:28, gap:150, essais:3, hom:2, 
+              matchTest: {score:"10-40", pts:0, try:"nz", hom:"Barrett"},
+              img: "https://ui-avatars.com/api/?name=Alex&background=e1000f&color=fff", analysis: "\"Alex prend des risques payants sur les outsiders.\"" },
+            
+            { name: "Sarah", dailyPoints: [10, 8, 0, 0, 0], exact:8, good:25, gap:160, essais:4, hom:2, 
+              matchTest: {score:"25-28", pts:0, try:"fr", hom:"Dupont"},
+              img: "https://ui-avatars.com/api/?name=Sarah", analysis: "\"Début timide, mais ses pronostics sur les essais sont redoutables.\"" },
+            
+            { name: "Marc", dailyPoints: [8, 10, 0, 0, 0], exact:5, good:22, gap:180, essais:3, hom:1, 
+              matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"},
+              img: "https://ui-avatars.com/api/?name=Marc", analysis: "\"Marc doit améliorer sa précision sur les scores exacts.\"" },
+            
+            // ... (Génération rapide des autres pour l'exemple)
+            { name: "Paul", dailyPoints: [14, 6, 0,0,0], exact:4, good:20, gap:190, essais:2, hom:1, matchTest: {score:"15-15", pts:0, try:"nz", hom:"Alldritt"}, img: "https://ui-avatars.com/api/?name=Paul", analysis: "Constant." },
+            { name: "Lisa", dailyPoints: [16, 4, 0,0,0], exact:3, good:19, gap:200, essais:2, hom:0, matchTest: {score:"32-30", pts:1, try:"fr", hom:"Ramos"}, img: "https://ui-avatars.com/api/?name=Lisa", analysis: "Difficultés à l'extérieur." },
+            { name: "Karim", dailyPoints: [5, 12, 0,0,0], exact:3, good:18, gap:210, essais:1, hom:1, matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"}, img: "https://ui-avatars.com/api/?name=Karim", analysis: "Remonte doucement." },
+            { name: "Emma", dailyPoints: [4, 5, 0,0,0], exact:2, good:17, gap:220, essais:1, hom:0, matchTest: {score:"12-40", pts:0, try:"nz", hom:"Jordan"}, img: "https://ui-avatars.com/api/?name=Emma", analysis: "Trop d'audace." },
+            { name: "David", dailyPoints: [3, 4, 0,0,0], exact:2, good:16, gap:230, essais:0, hom:1, matchTest: {score:"30-29", pts:3, try:"fr", hom:"Penaud"}, img: "https://ui-avatars.com/api/?name=David", analysis: "En difficulté." },
+            { name: "Nina", dailyPoints: [2, 5, 0,0,0], exact:1, good:15, gap:240, essais:0, hom:0, matchTest: {score:"20-25", pts:0, try:"nz", hom:"Mo'unga"}, img: "https://ui-avatars.com/api/?name=Nina", analysis: "Attend son heure." },
+            { name: "Hugo", dailyPoints: [6, 2, 0,0,0], exact:1, good:14, gap:250, essais:0, hom:0, matchTest: {score:"35-30", pts:1, try:"fr", hom:"Ramos"}, img: "https://ui-avatars.com/api/?name=Hugo", analysis: "Doit se réveiller." },
+            { name: "Zoe", dailyPoints: [1, 2, 0,0,0], exact:0, good:12, gap:260, essais:0, hom:0, matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"}, img: "https://ui-avatars.com/api/?name=Zoe", analysis: "Manque de chance." },
+            { name: "Leo", dailyPoints: [0, 1, 0,0,0], exact:0, good:10, gap:270, essais:0, hom:0, matchTest: {score:"10-50", pts:0, try:"nz", hom:"Telea"}, img: "https://ui-avatars.com/api/?name=Leo", analysis: "En apprentissage." },
+            { name: "Jade", dailyPoints: [0, 0, 0,0,0], exact:0, good:8, gap:280, essais:0, hom:0, matchTest: {score:"22-20", pts:1, try:"fr", hom:"Jalibert"}, img: "https://ui-avatars.com/api/?name=Jade", analysis: "Ferme la marche." }
+        ];
+
+        // --- 2. CALCULS & LOGIQUE CLASSEMENT ---
+        
+        function getPointsForFilter(player, filter) {
+            if (filter === 'all') return player.dailyPoints.reduce((a, b) => a + b, 0); // Somme totale
+            // Si filter = 'J1', on retourne points J1. Si 'J2', somme J1+J2 pour le cumulatif du moment ? 
+            // Ta demande : "classement est la somme de la journée qui s'est joué et les précédentes"
+            // Donc J2 = J1 + J2.
+            const idx = parseInt(filter.replace('J', '')) - 1;
+            // On somme de 0 à idx
+            return player.dailyPoints.slice(0, idx + 1).reduce((a, b) => a + b, 0);
+        }
+
+        function getTrend(player, currentRank, filter) {
+            // Trend logic: Compare Rank(Current) vs Rank(Previous Day)
+            if (filter === 'J1' || filter === 'all') return 'stable'; // Pas de ref avant J1
+            
+            // Calcul du rang au tour précédent
+            const prevFilterIdx = (filter === 'all') ? 4 : parseInt(filter.replace('J', '')) - 2; // Si J2 (idx 1), prev is J1 (idx 0)
+            
+            // On doit trier tout le monde au tour d'avant pour trouver le rang
+            const prevScores = playersDB.map(p => {
+                const pts = p.dailyPoints.slice(0, prevFilterIdx + 1).reduce((a, b) => a + b, 0);
+                return { name: p.name, pts: pts };
+            }).sort((a, b) => b.pts - a.pts);
+
+            const prevRank = prevScores.findIndex(p => p.name === player.name) + 1;
+
+            if (currentRank < prevRank) return 'up';
+            if (currentRank > prevRank) return 'down';
+            return 'stable';
+        }
+
+        function renderLeaderboard(filter) {
+            const listContainer = document.getElementById('leaderboard-rows');
+            const podiumContainer = document.getElementById('podium-container');
+            listContainer.innerHTML = '';
+            podiumContainer.innerHTML = '';
+
+            // 1. Calcul des points pour ce filtre & Tri
+            let displayData = playersDB.map(p => {
+                return { ...p, currentPts: getPointsForFilter(p, filter) };
+            }).sort((a, b) => b.currentPts - a.currentPts);
+
+            // 2. Affichage Podium (Top 3)
+            if(displayData.length >= 3) {
+                const p1 = displayData[0]; const p2 = displayData[1]; const p3 = displayData[2];
+                podiumContainer.innerHTML = `
+                    <div class="podium-card rank-2" onclick="loadProfile('${p2.name}')">
+                        <div class="rank-circle" style="background-image:url('${p2.img}');"><div class="rank-badge">2</div></div>
+                        <div class="podium-name">${p2.name}</div><div class="podium-pts">${p2.currentPts} PTS</div>
+                    </div>
+                    <div class="podium-card rank-1" onclick="loadProfile('${p1.name}')">
+                        <i class="fas fa-crown crown-icon"></i>
+                        <div class="rank-circle" style="background-image:url('${p1.img}');"><div class="rank-badge">1</div></div>
+                        <div class="podium-name">${p1.name}</div><div class="podium-pts" style="font-size:1.8rem;">${p1.currentPts} PTS</div>
+                    </div>
+                    <div class="podium-card rank-3" onclick="loadProfile('${p3.name}')">
+                        <div class="rank-circle" style="background-image:url('${p3.img}');"><div class="rank-badge">3</div></div>
+                        <div class="podium-name">${p3.name}</div><div class="podium-pts">${p3.currentPts} PTS</div>
+                    </div>
+                `;
+            }
+
+            // 3. Affichage Liste
+            displayData.forEach((player, index) => {
+                const rank = index + 1;
+                // Calcul Tendance
+                const trend = getTrend(player, rank, filter);
+                let trendIcon = '<i class="fas fa-minus trend-icon t-stable"></i>';
+                if(trend === 'up') trendIcon = '<i class="fas fa-caret-up trend-icon t-up"></i>';
+                if(trend === 'down') trendIcon = '<i class="fas fa-caret-down trend-icon t-down"></i>';
+
+                const row = document.createElement('div');
+                row.className = "lb-row";
+                row.onclick = () => loadProfile(player.name);
+                row.innerHTML = `
+                    <div class="col-rank ${rank <=3 ? 'rank-top' : ''}">${rank} ${trendIcon}</div>
+                    <div class="col-user"><div class="lb-avatar" style="background-image:url('${player.img}');"></div><span class="lb-name">${player.name}</span></div>
+                    <div class="col-stat">${player.exact}/${player.good}</div>
+                    <div class="col-stat">${player.gap}</div>
+                    <div class="col-stat">${player.essais}</div>
+                    <div class="col-stat">${player.hom}</div>
+                    <div class="col-pts">${player.currentPts}</div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        function updateLeaderboard(filter, el) {
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+            renderLeaderboard(filter);
+        }
+
+        // --- 3. RENDU DETAILS RESULTATS (Onglet 2) ---
+        function renderResultDetails() {
+            const container = document.getElementById('detail-1');
+            container.innerHTML = '';
+            
+            // On prend playersDB qui est notre source de vérité
+            playersDB.forEach(p => {
+                const mt = p.matchTest;
+                let border = "border-red"; let label = "PT";
+                if(mt.pts === 3) { border = "border-green"; label = "PTS"; }
+                else if(mt.pts === 1) { border = "border-orange"; label = "PT"; }
+
+                const html = `
+                <div class="player-row-complex" onclick="loadProfile('${p.name}')">
+                    <div class="p-info"><div class="p-pic" style="background-image:url('${p.img}');"></div><span class="p-name">${p.name}</span></div>
+                    <div class="p-data">
+                        <div class="score-neutral">${mt.score}</div>
+                        <div class="extra-info">
+                            <div class="info-item">🏉 1er Essai: <img src="https://flagcdn.com/w20/${mt.try}.png" class="flag-mini"></div>
+                            <div class="info-item">🏅 HOM: ${mt.hom}</div>
+                        </div>
+                    </div>
+                    <div class="points-box ${border}"><span class="pts-val">${mt.pts}</span><span class="pts-label">${label}</span></div>
+                </div>`;
+                container.innerHTML += html;
+            });
+        }
+
+        // --- 4. NAVIGATION & PROFIL ---
+        const navPills = document.querySelectorAll('.nav-pill');
+        const tabs = ['matchs', 'results', 'classement', 'stats'];
+        const mainTitle = document.getElementById('main-title');
+
+        function switchTab(targetId) {
+            navPills.forEach(p => { p.classList.remove('active'); if(p.dataset.target === targetId) p.classList.add('active'); });
+            tabs.forEach(t => document.getElementById('tab-'+t).style.display = 'none');
+            document.getElementById('tab-'+targetId).style.display = 'block';
+            
+            if(targetId === 'matchs') mainTitle.innerText = "XV Masculin - Tournoi des Six Nations 2026";
+            else if(targetId === 'results') mainTitle.innerText = "Derniers Résultats & Scores";
+            else if(targetId === 'classement') mainTitle.innerText = "Classement Général";
+            else if(targetId === 'stats') mainTitle.innerText = "Statistiques Joueur";
+        }
+        navPills.forEach(pill => pill.addEventListener('click', () => switchTab(pill.dataset.target)));
+
+        function loadProfile(name) {
+            // Trouver data
+            const data = playersDB.find(p => p.name === name);
+            if(!data) return;
+
+            // Calculer Rang Actuel (Basé sur le total 'all')
+            const sortedAll = [...playersDB].sort((a,b) => getPointsForFilter(b, 'all') - getPointsForFilter(a, 'all'));
+            const currentRank = sortedAll.findIndex(p => p.name === name) + 1;
+            const currentTotal = getPointsForFilter(data, 'all');
+
+            // Remplir Select
+            const select = document.getElementById('profileSelect');
+            select.innerHTML = '';
+            playersDB.forEach(p => {
+                let opt = document.createElement('option');
+                opt.value = p.name;
+                opt.innerHTML = p.name;
+                select.appendChild(opt);
+            });
+            select.value = name;
+
+            document.getElementById('p-name').innerText = name;
+            document.getElementById('p-avatar').style.backgroundImage = `url('${data.img}')`;
+            document.getElementById('p-total').innerText = currentTotal;
+            document.getElementById('p-rank').innerText = currentRank;
+            document.getElementById('p-bons').innerText = data.good;
+            document.getElementById('p-essais').innerText = data.essais;
+            document.getElementById('p-hom').innerText = data.hom;
+            if(document.getElementById('p-analysis')) document.getElementById('p-analysis').innerText = data.analysis;
+
+            // Remplir Historique (Utilise MatchTest + Fake history for 6 nations context)
+            const historyContainer = document.getElementById('p-history-rows');
+            historyContainer.innerHTML = '';
+            
+            // Simuler l'historique basé sur les points du joueur
+            const history = [
+                {m: "France - Irlande", pts: data.dailyPoints[0] > 10 ? 3 : 1}, 
+                {m: "Galles - France", pts: data.dailyPoints[1] > 10 ? 1 : 0},
+                {m: "France - Italie", pts: null},
+                {m: "Écosse - France", pts: null},
+                {m: "France - Angleterre", pts: null}
+            ];
+
+            history.forEach(h => {
+                let badge = `<span class="pts-pending">À venir</span>`;
+                let score = "-- - --";
+                if(h.pts !== null) {
+                    if(h.pts === 3) { badge = `<span class="pts-badge-sm" style="background:#2e7d32;">3 PTS</span>`; score = "30 - 29"; }
+                    else if(h.pts === 1) { badge = `<span class="pts-badge-sm" style="background:#f57f17;">1 PT</span>`; score = "20 - 20"; }
+                    else { badge = `<span class="pts-badge-sm" style="background:#c62828;">0 PT</span>`; score = "10 - 40"; }
+                }
+                historyContainer.innerHTML += `<div class="recap-row"><span class="recap-match">${h.m}</span><span class="recap-prono">${score}</span><span class="recap-pts">${badge}</span></div>`;
+            });
+
+            switchTab('stats');
+        }
+
+        // --- INIT ---
+        renderLeaderboard('all'); 
+        renderResultDetails();
+        
+        function toggleDetails(id, banner) {
+            const detail = document.getElementById(id);
+            if(detail.classList.contains('open')) { detail.classList.remove('open'); banner.classList.remove('open'); }
+            else { detail.classList.add('open'); banner.classList.add('open'); }
+        }
+
+        function startTimer() {
+            const target = new Date("Feb 05, 2026 21:10:00").getTime();
+            const el = document.getElementById("timer-j1");
+            if(!el) return;
+            setInterval(() => {
+                const now = new Date().getTime(); const dist = target - now;
+                if (dist < 0) { el.innerHTML = "EN COURS"; return; }
+                const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+                const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((dist % (1000 * 60)) / 1000);
+                const fmt = (n) => n.toString().padStart(2, '0');
+                el.innerHTML = `<i class="far fa-clock"></i> ${fmt(d)}j ${fmt(h)}:${fmt(m)}:${fmt(s)}`;
+            }, 1000);
+        }
+        startTimer();
+    </script>
+</body>
+</html>
