@@ -16,15 +16,11 @@
             --ffr-red: #e1000f;
             --white: #ffffff;
             --grey-bg: #f0f2f5;
-            --banner-overlay: rgba(0, 32, 77, 0.6); /* Overlay léger pour voir les images */
+            --banner-overlay: rgba(0, 32, 77, 0.7);
             
-            /* Couleurs Tendance */
+            /* Couleurs */
             --trend-up: #2e7d32; --trend-down: #c62828; --trend-stable: #999;
-            
-            /* Couleurs Médailles */
             --gold: #FFD700; --silver: #C0C0C0; --bronze: #CD7F32;
-            
-            /* Bordures Pronos */
             --border-win: #2e7d32; --border-draw: #f57f17; --border-loss: #c62828;
         }
 
@@ -42,37 +38,40 @@
         /* MATCHS */
         .match-banner { 
             background-size: cover; background-position: center; 
-            border-radius: 8px; display: flex; align-items: center; justify-content: space-between; 
-            padding: 25px 40px; margin-bottom: 20px; color: var(--white); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.2s ease; 
+            border-radius: 12px; display: flex; align-items: center; justify-content: space-between; 
+            padding: 40px 50px; min-height: 260px; margin-bottom: 30px; 
+            color: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
+            position: relative; transition: transform 0.2s ease; 
         }
         .match-banner:hover { transform: translateY(-3px); }
-        .banner-left { width: 15%; font-size: 1.4rem; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; color: #eee; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .banner-center { width: 60%; display: flex; flex-direction: column; align-items: center; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .banner-right { width: 25%; display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
-        
-        .competition-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; margin-bottom: 12px; }
-        .duel-row { display: flex; align-items: center; justify-content: center; gap: 25px; width: 100%; }
-        .team-name { font-size: 1.4rem; font-weight: 500; text-transform: uppercase; width: 120px; } .team-name.right { text-align: right; } .team-name.left { text-align: left; }
-        .flag-icon { width: 65px; height: 65px; border-radius: 50%; border: 3px solid var(--white); object-fit: cover; }
-        .match-info-center { text-align: center; margin: 0 10px; min-width: 140px; }
-        .match-date { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; color: var(--ffr-action); }
-        .match-time { font-size: 1.6rem; font-weight: 900; line-height: 1.2; }
-        .stadium-name { font-size: 0.8rem; margin-top: 12px; opacity: 0.9; text-transform: uppercase; font-weight: 500; }
-        .btn-prono { background-color: var(--ffr-action); color: white; padding: 12px 25px; font-size: 0.95rem; font-weight: 700; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: background 0.2s; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .btn-prono:hover { background-color: #1a7ec9; }
-        .countdown-timer { font-family: 'Roboto Mono', monospace; font-size: 0.9rem; padding: 6px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; background: rgba(0,0,0,0.6); display: flex; align-items: center; gap: 10px; backdrop-filter: blur(5px); }
+        .banner-left { width: 15%; font-size: 1.6rem; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; color: #eee; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+        .banner-center { width: 60%; display: flex; flex-direction: column; align-items: center; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+        .banner-right { width: 25%; display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+        .competition-tag { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; opacity: 0.9; margin-bottom: 20px; background: rgba(0,0,0,0.4); padding: 5px 15px; border-radius: 20px; }
+        .duel-row { display: flex; align-items: center; justify-content: center; gap: 30px; width: 100%; }
+        .team-name { font-size: 1.8rem; font-weight: 700; text-transform: uppercase; width: 140px; font-family: 'Roboto Condensed', sans-serif; } 
+        .team-name.right { text-align: right; } .team-name.left { text-align: left; }
+        .flag-icon { width: 90px; height: 90px; border-radius: 50%; border: 4px solid var(--white); object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .match-info-center { text-align: center; margin: 0 15px; min-width: 160px; }
+        .match-date { font-size: 1.3rem; font-weight: 900; text-transform: uppercase; color: #4fc3f7; margin-bottom: 5px;}
+        .match-time { font-size: 2.2rem; font-weight: 900; line-height: 1; }
+        .stadium-name { font-size: 0.9rem; margin-top: 20px; opacity: 0.9; text-transform: uppercase; font-weight: 500; }
+        .btn-prono { background-color: var(--ffr-action); color: white; padding: 15px 30px; font-size: 1rem; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: background 0.2s; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .btn-prono:hover { background-color: #1a7ec9; transform: scale(1.02); }
+        .countdown-timer { font-family: 'Roboto Mono', monospace; font-size: 1rem; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; background: rgba(0,0,0,0.6); display: flex; align-items: center; gap: 10px; backdrop-filter: blur(5px); }
 
         /* RESULTATS */
+        .result-banner { 
+            border-left: 6px solid var(--ffr-action); cursor: pointer; margin-bottom: 0; 
+            border-bottom-left-radius: 0; border-bottom-right-radius: 0; 
+            min-height: 150px; padding: 30px 40px;
+        }
+        .final-score { font-size: 2.2rem; font-weight: 900; background: rgba(0,0,0,0.3); padding: 5px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); min-width: 140px; text-align: center; }
         .official-result-row { display: flex; gap: 20px; font-size: 0.9rem; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 20px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3); }
         .official-item { display: flex; align-items: center; gap: 8px; font-weight: 700; }
-        .official-item img { width: 20px; border-radius: 2px; }
         
-        .result-banner { border-left: 6px solid var(--ffr-action); cursor: pointer; margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-        .final-score { font-size: 2.2rem; font-weight: 900; background: rgba(0,0,0,0.3); padding: 5px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); min-width: 140px; text-align: center; }
         .result-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: var(--white); border-radius: 0 0 8px 8px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .result-details.open { max-height: 2500px; }
-        
         .player-row-complex { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 1px solid #eee; cursor: pointer; transition: background 0.2s; }
         .player-row-complex:hover { background: #f9f9f9; }
         .p-info { display: flex; align-items: center; gap: 15px; width: 25%; }
@@ -86,6 +85,15 @@
         .points-box { display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: 5px; padding: 8px 15px; border-radius: 8px; background: #fff; border: 2px solid #e0e0e0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-width: 70px; color: var(--ffr-blue); }
         .pts-val { font-weight: 900; font-size: 1.3rem; line-height: 1; }
         .pts-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
+
+        /* REGLEMENT */
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px 0; }
+        .rule-card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--ffr-blue); transition: transform 0.2s; }
+        .rule-card:hover { transform: translateY(-3px); }
+        .rule-icon { font-size: 2rem; margin-bottom: 15px; display: block; }
+        .rule-title { font-weight: 900; font-size: 1.1rem; color: var(--ffr-blue); text-transform: uppercase; margin-bottom: 10px; }
+        .rule-points { font-size: 2rem; font-weight: 900; color: var(--ffr-action); font-family: 'Roboto Condensed', sans-serif; float: right; }
+        .rule-desc { font-size: 0.9rem; color: #555; line-height: 1.4; clear: both;}
 
         /* CLASSEMENT */
         .podium-area { display: flex; justify-content: center; align-items: flex-end; gap: 20px; margin-bottom: 30px; padding-top: 20px; }
@@ -147,9 +155,12 @@
         .recap-list { margin: 0 20px 40px 20px; }
         .recap-title { font-size: 1rem; font-weight: 900; color: var(--ffr-blue); margin-bottom: 15px; text-transform: uppercase; border-left: 4px solid var(--ffr-red); padding-left: 10px; }
         .recap-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        .recap-match { font-weight: 700; width: 45%; }
+        .recap-info { display: flex; flex-direction: column; width: 45%; }
+        .recap-match { font-weight: 700; }
+        .recap-sub { font-size: 0.75rem; color: #666; margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+        .recap-sub img { width: 16px; height: 12px; border-radius: 2px; }
         .recap-prono { width: 30%; text-align: center; color: #555; font-weight: 700; }
-        .recap-pts { width: 20%; text-align: right; font-weight: 900; }
+        .recap-pts { width: 25%; text-align: right; font-weight: 900; }
         .pts-badge-sm { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; color: #333; background: #e0e0e0; display: inline-block; min-width: 30px; text-align: center; font-weight: 700; }
         .pts-pending { background: #eee; color: #999; font-size: 0.7rem; font-style: italic; padding: 4px 8px; border-radius: 4px; }
 
@@ -162,8 +173,11 @@
         .nav-pill i { font-size: 1.1rem; } .nav-pill.active i { color: var(--ffr-red); }
 
         @media (max-width: 900px) {
-            .match-banner { flex-direction: column; text-align: center; gap: 15px; }
+            .match-banner { flex-direction: column; text-align: center; gap: 20px; padding: 30px 20px; min-height: auto; }
             .banner-left, .banner-center, .banner-right { width: 100%; align-items: center; }
+            .team-name { font-size: 1.4rem; width: auto; }
+            .flag-icon { width: 70px; height: 70px; }
+            .match-time { font-size: 1.8rem; }
             .lb-header { font-size: 0.6rem; } .col-stat { font-size: 0.7rem; width: 14%; } .col-user { width: 25%; }
             .recap-row { font-size: 0.8rem; }
         }
@@ -199,14 +213,14 @@
         </div>
 
         <div id="tab-results" style="display:none;">
-            <div class="result-banner match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Stade_de_France_inside.jpg/1200px-Stade_de_France_inside.jpg');" onclick="toggleDetails('detail-1', this)">
-                <div class="banner-left">Test</div>
+            <div class="result-banner match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://stadedefrance-s3-prod.s3.eu-west-1.amazonaws.com/s3fs-public/2021-08/France%20-%20Fidji%202021%201920x1080.jpg');" onclick="toggleDetails('detail-1', this)">
+                <div class="banner-left">Match Test</div>
                 <div class="banner-center">
-                    <div class="competition-tag">Match Amical - Automne 2025</div>
-                    <div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="final-score">30 - 29</div><img src="https://flagcdn.com/w160/nz.png" class="flag-icon" alt="NZ"><span class="team-name left">N. Zélande</span></div>
+                    <div class="competition-tag">Automne Nations Series 2025</div>
+                    <div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="final-score"> 34 - 21 </div><img src="https://flagcdn.com/w160/fj.png" class="flag-icon" alt="FJ"><span class="team-name left">Fidji</span></div>
                     <div class="official-result-row">
-                        <div class="official-item">🏉 1er Essai: <img src="https://flagcdn.com/w20/fr.png" alt="FR"></div>
-                        <div class="official-item">🏅 HOM: Alldritt</div>
+                        <div class="official-item">🏉 1er Essai: <img src="https://flagcdn.com/w20/fr.png"> France</div>
+                        <div class="official-item">👑 HOM: Ollivon</div>
                     </div>
                     <div class="stadium-name">Stade de France (Terminé)</div>
                 </div>
@@ -214,6 +228,42 @@
             </div>
             <div id="detail-1" class="result-details">
                 </div>
+        </div>
+
+        <div id="tab-reglement" style="display:none;">
+            <div class="section-headline">Règlement & Points</div>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <span class="rule-icon">🎯</span>
+                    <span class="rule-title">Score Exact</span>
+                    <span class="rule-points">5 PTS</span>
+                    <div class="rule-desc">Trouver le score exact du match (ex: 30-29). C'est le jackpot !</div>
+                </div>
+                <div class="rule-card">
+                    <span class="rule-icon">💪</span>
+                    <span class="rule-title">Bon Vainqueur</span>
+                    <span class="rule-points">3 PTS</span>
+                    <div class="rule-desc">Trouver la bonne équipe gagnante (ou le match nul).</div>
+                </div>
+                <div class="rule-card">
+                    <span class="rule-icon">📏</span>
+                    <span class="rule-title">Écart le + proche</span>
+                    <span class="rule-points">2 PTS</span>
+                    <div class="rule-desc">Bonus si vous avez le bon écart de points (Goal Average).</div>
+                </div>
+                <div class="rule-card">
+                    <span class="rule-icon">🏉</span>
+                    <span class="rule-title">1er Essai</span>
+                    <span class="rule-points">1 PT</span>
+                    <div class="rule-desc">Trouver le joueur (ou l'équipe) qui marque le premier essai.</div>
+                </div>
+                <div class="rule-card">
+                    <span class="rule-icon">👑</span>
+                    <span class="rule-title">Homme du Match</span>
+                    <span class="rule-points">1 PT</span>
+                    <div class="rule-desc">Trouver le joueur élu "Player of the Match" officiel.</div>
+                </div>
+            </div>
         </div>
 
         <div id="tab-classement" style="display:none;">
@@ -253,7 +303,7 @@
                     <div class="analysis-text" id="p-analysis"></div>
                 </div>
                 <div class="recap-list">
-                    <div class="recap-title">Historique 6 Nations</div>
+                    <div class="recap-title">Historique</div>
                     <div id="p-history-rows"></div>
                 </div>
             </div>
@@ -265,65 +315,128 @@
         <nav class="floating-dock">
             <div class="nav-pill active" data-target="matchs"><i class="fas fa-ticket-alt"></i><span>Matchs</span></div>
             <div class="nav-pill" data-target="results"><i class="fas fa-clipboard-list"></i><span>Résultats</span></div>
+            <div class="nav-pill" data-target="reglement"><i class="fas fa-book"></i><span>Règles</span></div>
             <div class="nav-pill" data-target="classement"><i class="fas fa-list-ol"></i><span>Class.</span></div>
             <div class="nav-pill" data-target="stats"><i class="fas fa-user-circle"></i><span>Stats</span></div>
         </nav>
     </div>
 
     <script>
-        // --- 1. DATA (15 Joueurs avec Photos) ---
+        // --- 1. DATA (JSON Integré - France Fidji + 5 places vides) ---
         const playersDB = [
-            { name: "Thomas", dailyPoints: [18, 15, 0, 0, 0], exact:6, good:32, gap:120, essais:5, hom:3, 
-              matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"},
-              img: "https://i.pravatar.cc/150?img=1", analysis: "\"Thomas réalise un début de tournoi exceptionnel. Sa lecture du jeu est chirurgicale.\"" },
-            { name: "Julie", dailyPoints: [15, 12, 0, 0, 0], exact:4, good:33, gap:140, essais:4, hom:2, 
-              matchTest: {score:"20-20", pts:1, try:"nz", hom:"Savea"},
-              img: "https://i.pravatar.cc/150?img=5", analysis: "\"Julie assure les points bonus défensifs mais manque de risque sur les gros scores.\"" },
-            { name: "Alex", dailyPoints: [12, 18, 0, 0, 0], exact:6, good:28, gap:150, essais:3, hom:2, 
-              matchTest: {score:"10-40", pts:0, try:"nz", hom:"Barrett"},
-              img: "https://i.pravatar.cc/150?img=11", analysis: "\"Alex prend des risques payants sur les outsiders. Stratégie audacieuse.\"" },
-            { name: "Sarah", dailyPoints: [10, 8, 0, 0, 0], exact:8, good:25, gap:160, essais:4, hom:2, 
-              matchTest: {score:"25-28", pts:0, try:"fr", hom:"Dupont"},
-              img: "https://i.pravatar.cc/150?img=9", analysis: "\"Début timide, mais ses pronostics sur les essais sont redoutables.\"" },
-            { name: "Marc", dailyPoints: [8, 10, 0, 0, 0], exact:5, good:22, gap:180, essais:3, hom:1, 
-              matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"},
-              img: "https://i.pravatar.cc/150?img=3", analysis: "\"Marc doit améliorer sa précision sur les scores exacts.\"" },
-            { name: "Paul", dailyPoints: [14, 6, 0,0,0], exact:4, good:20, gap:190, essais:2, hom:1, matchTest: {score:"15-15", pts:0, try:"nz", hom:"Alldritt"}, img: "https://i.pravatar.cc/150?img=12", analysis: "Constant." },
-            { name: "Lisa", dailyPoints: [16, 4, 0,0,0], exact:3, good:19, gap:200, essais:2, hom:0, matchTest: {score:"32-30", pts:1, try:"fr", hom:"Ramos"}, img: "https://i.pravatar.cc/150?img=20", analysis: "Difficultés à l'extérieur." },
-            { name: "Karim", dailyPoints: [5, 12, 0,0,0], exact:3, good:18, gap:210, essais:1, hom:1, matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"}, img: "https://i.pravatar.cc/150?img=7", analysis: "Remonte doucement." },
-            { name: "Emma", dailyPoints: [4, 5, 0,0,0], exact:2, good:17, gap:220, essais:1, hom:0, matchTest: {score:"12-40", pts:0, try:"nz", hom:"Jordan"}, img: "https://i.pravatar.cc/150?img=25", analysis: "Trop d'audace." },
-            { name: "David", dailyPoints: [3, 4, 0,0,0], exact:2, good:16, gap:230, essais:0, hom:1, matchTest: {score:"30-29", pts:3, try:"fr", hom:"Penaud"}, img: "https://i.pravatar.cc/150?img=15", analysis: "En difficulté." },
-            { name: "Nina", dailyPoints: [2, 5, 0,0,0], exact:1, good:15, gap:240, essais:0, hom:0, matchTest: {score:"20-25", pts:0, try:"nz", hom:"Mo'unga"}, img: "https://i.pravatar.cc/150?img=29", analysis: "Attend son heure." },
-            { name: "Hugo", dailyPoints: [6, 2, 0,0,0], exact:1, good:14, gap:250, essais:0, hom:0, matchTest: {score:"35-30", pts:1, try:"fr", hom:"Ramos"}, img: "https://i.pravatar.cc/150?img=18", analysis: "Doit se réveiller." },
-            { name: "Zoe", dailyPoints: [1, 2, 0,0,0], exact:0, good:12, gap:260, essais:0, hom:0, matchTest: {score:"30-29", pts:3, try:"fr", hom:"Dupont"}, img: "https://i.pravatar.cc/150?img=31", analysis: "Manque de chance." },
-            { name: "Leo", dailyPoints: [0, 1, 0,0,0], exact:0, good:10, gap:270, essais:0, hom:0, matchTest: {score:"10-50", pts:0, try:"nz", hom:"Telea"}, img: "https://i.pravatar.cc/150?img=22", analysis: "En apprentissage." },
-            { name: "Jade", dailyPoints: [0, 0, 0,0,0], exact:0, good:8, gap:280, essais:0, hom:0, matchTest: {score:"22-20", pts:1, try:"fr", hom:"Jalibert"}, img: "https://i.pravatar.cc/150?img=35", analysis: "Ferme la marche." }
-        ];
+    {
+        "name": "Lison Desmeuzes",
+        "dailyPoints": [6, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 1, "essais": 1, "hom": 0,
+        "matchTest": { "score": "33 - 21", "pts": 6, "try": "fr", "hom": "Ramos" },
+        "img": "https://i.pravatar.cc/150?img=10", "analysis": "A pronostiqué 33 - 21."
+    },
+    {
+        "name": "Thibault Montagnon",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 2, "essais": 1, "hom": 0,
+        "matchTest": { "score": "32 - 21", "pts": 4, "try": "fr", "hom": "Lucu" },
+        "img": "https://i.pravatar.cc/150?img=11", "analysis": "A pronostiqué 32 - 21."
+    },
+    {
+        "name": "Maël Kounga",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 3, "essais": 1, "hom": 0,
+        "matchTest": { "score": "32 - 20", "pts": 4, "try": "fr", "hom": "LBB" },
+        "img": "https://i.pravatar.cc/150?img=12", "analysis": "A pronostiqué 32 - 20."
+    },
+    {
+        "name": "Thomas Lesur",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 3, "essais": 1, "hom": 0,
+        "matchTest": { "score": "35 - 23", "pts": 4, "try": "fr", "hom": "Thomas RAMOS" },
+        "img": "https://i.pravatar.cc/150?img=13", "analysis": "A pronostiqué 35 - 23."
+    },
+    {
+        "name": "Henri Dewavrin",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 6, "essais": 1, "hom": 0,
+        "matchTest": { "score": "32 - 17", "pts": 4, "try": "fr", "hom": "LBB" },
+        "img": "https://i.pravatar.cc/150?img=14", "analysis": "A pronostiqué 32 - 17."
+    },
+    {
+        "name": "Thomas André",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 13, "essais": 1, "hom": 0,
+        "matchTest": { "score": "35 - 15", "pts": 4, "try": "fr", "hom": "Nicolas 2portesR" },
+        "img": "https://i.pravatar.cc/150?img=15", "analysis": "A pronostiqué 35 - 15."
+    },
+    {
+        "name": "Cyril Magagnin",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 8, "essais": 1, "hom": 0,
+        "matchTest": { "score": "41 - 20", "pts": 4, "try": "fr", "hom": "Penaud" },
+        "img": "https://i.pravatar.cc/150?img=16", "analysis": "A pronostiqué 41 - 20."
+    },
+    {
+        "name": "Alexandre Anginot",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 7, "essais": 1, "hom": 0,
+        "matchTest": { "score": "27 - 17", "pts": 4, "try": "fr", "hom": "Penaud" },
+        "img": "https://i.pravatar.cc/150?img=17", "analysis": "A pronostiqué 27 - 17."
+    },
+    {
+        "name": "Camille Pedamond",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 7, "essais": 1, "hom": 0,
+        "matchTest": { "score": "29 - 14", "pts": 4, "try": "fr", "hom": "Depoortere" },
+        "img": "https://i.pravatar.cc/150?img=18", "analysis": "A pronostiqué 29 - 14."
+    },
+    {
+        "name": "Louis Georgeonnet",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 17, "essais": 1, "hom": 0,
+        "matchTest": { "score": "22 - 14", "pts": 4, "try": "fr", "hom": "Ramos" },
+        "img": "https://i.pravatar.cc/150?img=19", "analysis": "A pronostiqué 22 - 14."
+    },
+    {
+        "name": "Mathis Vanbrabant",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 19, "essais": 1, "hom": 0,
+        "matchTest": { "score": "45 - 13", "pts": 4, "try": "fr", "hom": "LBB" },
+        "img": "https://i.pravatar.cc/150?img=20", "analysis": "A pronostiqué 45 - 13."
+    },
+    {
+        "name": "Corinne Dumas",
+        "dailyPoints": [4, 0, 0, 0, 0, 0],
+        "exact": 0, "good": 1, "gap": 16, "essais": 1, "hom": 0,
+        "matchTest": { "score": "30 - 5", "pts": 4, "try": "fr", "hom": "Thomas RAMOS" },
+        "img": "https://i.pravatar.cc/150?img=21", "analysis": "A pronostiqué 30 - 5."
+    }
+];
 
         // --- 2. LOGIQUE ---
         function getPointsForFilter(player, filter) {
             if (filter === 'all') return player.dailyPoints.reduce((a, b) => a + b, 0); 
-            const idx = parseInt(filter.replace('J', '')) - 1;
+            // Si J1 (premier match) = index 0. Si J2 = index 1...
+            // Ici dailyPoints[0] = Match Test (Fidji)
+            // Donc J1 du Tournoi serait index 1.
+            const idx = parseInt(filter.replace('J', '')); // J1 -> 1
+            // Pour simplifier l'affichage démo, on considère que J1 = Index 1 (après le match test)
             return player.dailyPoints.slice(0, idx + 1).reduce((a, b) => a + b, 0);
         }
-        function getTrend(player, currentRank, filter) {
-            if (filter === 'J1') return 'stable';
-            const prevFilterIdx = (filter === 'all') ? 1 : parseInt(filter.replace('J', '')) - 2; 
-            if (prevFilterIdx < 0) return 'stable';
-            const prevScores = playersDB.map(p => {
-                const pts = p.dailyPoints.slice(0, prevFilterIdx + 1).reduce((a, b) => a + b, 0);
-                return { name: p.name, pts: pts };
-            }).sort((a, b) => b.pts - a.pts);
-            const prevRank = prevScores.findIndex(p => p.name === player.name) + 1;
-            if (currentRank < prevRank) return 'up';
-            if (currentRank > prevRank) return 'down';
-            return 'stable';
-        }
+        
         function renderLeaderboard(filter) {
             const listContainer = document.getElementById('leaderboard-rows');
             const podiumContainer = document.getElementById('podium-container');
             listContainer.innerHTML = ''; podiumContainer.innerHTML = '';
-            let displayData = playersDB.map(p => { return { ...p, currentPts: getPointsForFilter(p, filter) }; }).sort((a, b) => b.currentPts - a.currentPts);
+            
+            // SORTING LOGIC: 1. Points (Desc), 2. Gap (Asc)
+            let displayData = playersDB.map(p => { 
+                return { ...p, currentPts: getPointsForFilter(p, filter) }; 
+            }).sort((a, b) => {
+                if (b.currentPts !== a.currentPts) {
+                    return b.currentPts - a.currentPts; // Points Desc
+                } else {
+                    return a.gap - b.gap; // Gap Asc (Smaller gap is better)
+                }
+            });
+
             if(displayData.length >= 3) {
                 const p1 = displayData[0]; const p2 = displayData[1]; const p3 = displayData[2];
                 podiumContainer.innerHTML = `
@@ -332,10 +445,9 @@
                     <div class="podium-card rank-3" onclick="loadProfile('${p3.name}')"><div class="rank-circle" style="background-image:url('${p3.img}');"><div class="rank-badge">3</div></div><div class="podium-name">${p3.name}</div><div class="podium-pts">${p3.currentPts} PTS</div></div>`;
             }
             displayData.forEach((player, index) => {
-                const rank = index + 1; const trend = getTrend(player, rank, filter);
+                const rank = index + 1; 
+                // Trend is static for now
                 let trendIcon = '<i class="fas fa-minus trend-icon t-stable"></i>';
-                if(trend === 'up') trendIcon = '<i class="fas fa-caret-up trend-icon t-up"></i>';
-                if(trend === 'down') trendIcon = '<i class="fas fa-caret-down trend-icon t-down"></i>';
                 const row = document.createElement('div'); row.className = "lb-row"; row.onclick = () => loadProfile(player.name);
                 row.innerHTML = `<div class="col-rank ${rank <=3 ? 'rank-top' : ''}">${rank} ${trendIcon}</div><div class="col-user"><div class="lb-avatar" style="background-image:url('${player.img}');"></div><span class="lb-name">${player.name}</span></div><div class="col-stat">${player.exact}/${player.good}</div><div class="col-stat">${player.gap}</div><div class="col-stat">${player.essais}</div><div class="col-stat">${player.hom}</div><div class="col-pts">${player.currentPts}</div>`;
                 listContainer.appendChild(row);
@@ -347,41 +459,39 @@
         }
         function renderResultDetails() {
             const container = document.getElementById('detail-1'); container.innerHTML = '';
-            playersDB.forEach(p => {
+            // Trie par nom
+            const sortedPlayers = [...playersDB].sort((a,b) => a.name.localeCompare(b.name));
+            sortedPlayers.forEach(p => {
                 const mt = p.matchTest;
-                let border = "border-red"; let label = "PT";
-                if(mt.pts === 3) { border = "border-green"; label = "PTS"; } else if(mt.pts === 1) { border = "border-orange"; label = "PT"; }
                 const html = `
                 <div class="player-row-complex" onclick="loadProfile('${p.name}')">
                     <div class="p-info"><div class="p-pic" style="background-image:url('${p.img}');"></div><span class="p-name">${p.name}</span></div>
                     <div class="p-data">
                         <div class="score-neutral">${mt.score}</div>
                         <div class="extra-info">
-                            <div class="info-item">🏉 1er Essai: <img src="https://flagcdn.com/w20/${mt.try}.png" class="flag-mini"></div>
+                            <div class="info-item">🏉 1er Essai: ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png" class="flag-mini">' : (mt.try === 'fj' ? '<img src="https://flagcdn.com/w20/fj.png" class="flag-mini">' : mt.try)}</div>
                             <div class="info-item">🏅 HOM: ${mt.hom}</div>
                         </div>
                     </div>
-                    <div class="points-box ${border}"><span class="pts-val">${mt.pts}</span><span class="pts-label">${label}</span></div>
+                    <div class="points-box"><span class="pts-val">${mt.pts}</span><span class="pts-label">PTS</span></div>
                 </div>`;
                 container.innerHTML += html;
             });
         }
-        const navPills = document.querySelectorAll('.nav-pill'); const tabs = ['matchs', 'results', 'classement', 'stats']; const mainTitle = document.getElementById('main-title');
+        const navPills = document.querySelectorAll('.nav-pill'); const tabs = ['matchs', 'results', 'reglement', 'classement', 'stats']; const mainTitle = document.getElementById('main-title');
         function switchTab(targetId) {
             navPills.forEach(p => { p.classList.remove('active'); if(p.dataset.target === targetId) p.classList.add('active'); });
             tabs.forEach(t => document.getElementById('tab-'+t).style.display = 'none');
             document.getElementById('tab-'+targetId).style.display = 'block';
             if(targetId === 'matchs') mainTitle.innerText = "XV Masculin - Tournoi des Six Nations 2026";
             else if(targetId === 'results') mainTitle.innerText = "Derniers Résultats & Scores";
+            else if(targetId === 'reglement') mainTitle.innerText = "Règlement & Barème";
             else if(targetId === 'classement') mainTitle.innerText = "Classement Général";
             else if(targetId === 'stats') mainTitle.innerText = "Statistiques Joueur";
         }
         navPills.forEach(pill => pill.addEventListener('click', () => switchTab(pill.dataset.target)));
         function initProfileSelect() {
             const select = document.getElementById('profileSelect'); 
-            // On ne met PLUS de reset/vide, mais directement les joueurs. 
-            // L'état initial sera géré par loadProfile('Thomas') ou un état "vide" géré proprement si on veut.
-            // Mais pour une UX fluide, on met les joueurs.
             select.innerHTML = '<option value="reset" selected disabled>Choisir un joueur...</option>';
             const sortedByRank = [...playersDB].sort((a,b) => getPointsForFilter(b, 'all') - getPointsForFilter(a, 'all'));
             sortedByRank.forEach(p => { let opt = document.createElement('option'); opt.value = p.name; opt.innerHTML = p.name; select.appendChild(opt); });
@@ -402,10 +512,14 @@
             const cpHom = document.getElementById('cp-hom');
 
             if (name === 'reset') {
-                // ... (code reset existant)
+                // ...
             } else {
                 const data = playersDB.find(p => p.name === name); if(!data) return;
-                const sortedAll = [...playersDB].sort((a,b) => getPointsForFilter(b, 'all') - getPointsForFilter(a, 'all'));
+                const sortedAll = [...playersDB].sort((a,b) => {
+                    if (b.dailyPoints.reduce((x,y)=>x+y) !== a.dailyPoints.reduce((x,y)=>x+y))
+                        return b.dailyPoints.reduce((x,y)=>x+y) - a.dailyPoints.reduce((x,y)=>x+y);
+                    return a.gap - b.gap;
+                });
                 const currentRank = sortedAll.findIndex(p => p.name === name) + 1;
                 const currentTotal = getPointsForFilter(data, 'all');
                 select.value = name;
@@ -418,36 +532,30 @@
                 pHom.innerText = data.hom;
                 pAnalysis.innerText = data.analysis;
                 
-                const totalPronos = 46; 
+                const totalPronos = 6; // 1 match joué + 5 à venir
                 cpBons.style.setProperty('--c-val', `${(data.good / totalPronos * 100)}%`);
-                cpEssais.style.setProperty('--c-val', `${(data.essais / 5 * 100)}%`); 
-                cpHom.style.setProperty('--c-val', `${(data.hom / 5 * 100)}%`); 
+                cpEssais.style.setProperty('--c-val', `${(data.essais / totalPronos * 100)}%`); 
+                cpHom.style.setProperty('--c-val', `${(data.hom / totalPronos * 100)}%`); 
 
                 historyContainer.innerHTML = '';
-                const history = [
-                    {m: "France - Irlande", pts: data.dailyPoints[0] >= 15 ? 3 : (data.dailyPoints[0] > 5 ? 1 : 0), details: {try: "fr", hom: "Dupont"}}, 
-                    {m: "Galles - France", pts: data.dailyPoints[1] >= 15 ? 3 : (data.dailyPoints[1] > 5 ? 1 : 0), details: {try: "nz", hom: "Ramos"}},
-                    {m: "France - Italie", pts: null}, {m: "Écosse - France", pts: null}, {m: "France - Angleterre", pts: null}
-                ];
-                history.forEach(h => {
-                    let badge = `<span class="pts-pending">À venir</span>`; let score = "-- - --";
-                    let detailsHTML = "";
-                    if(h.pts !== null) {
-                        if(h.pts === 3) { badge = `<span class="pts-badge-sm" style="background:var(--border-win); color:white;">3 PTS</span>`; score = "30 - 29"; } 
-                        else if(h.pts === 1) { badge = `<span class="pts-badge-sm" style="background:var(--border-draw); color:white;">1 PT</span>`; score = "20 - 20"; } 
-                        else { badge = `<span class="pts-badge-sm" style="background:var(--border-loss); color:white;">0 PT</span>`; score = "10 - 40"; }
-                        detailsHTML = `<div class="recap-sub">🏉 <img src="https://flagcdn.com/w20/${h.details.try}.png"> 🏅 ${h.details.hom}</div>`;
-                    }
-                    historyContainer.innerHTML += `
+                // Simulation Historique basée sur les data réelles France-Fidji
+                const mt = data.matchTest;
+                const htmlHistory = `
                     <div class="recap-row">
                         <div class="recap-info">
-                            <span class="recap-match">${h.m}</span>
-                            ${detailsHTML}
+                            <span class="recap-match">France - Fidji</span>
+                            <div class="recap-sub">🏉 ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png">' : mt.try} 🏅 ${mt.hom}</div>
                         </div>
-                        <span class="recap-prono">${score}</span>
-                        <span class="recap-pts">${badge}</span>
-                    </div>`;
-                });
+                        <span class="recap-prono">${mt.score}</span>
+                        <span class="recap-pts"><span class="pts-badge-sm">${mt.pts} PTS</span></span>
+                    </div>
+                    <div class="recap-row"><span class="recap-match">France - Irlande</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
+                    <div class="recap-row"><span class="recap-match">Galles - France</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
+                    <div class="recap-row"><span class="recap-match">France - Italie</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
+                    <div class="recap-row"><span class="recap-match">Écosse - France</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
+                    <div class="recap-row"><span class="recap-match">France - Angleterre</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
+                    `;
+                historyContainer.innerHTML = htmlHistory;
             }
             switchTab('stats');
         }
