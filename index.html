@@ -137,9 +137,13 @@
         .recap-list { margin: 0 20px 40px 20px; }
         .recap-title { font-size: 1rem; font-weight: 900; color: var(--ffr-blue); margin-bottom: 15px; text-transform: uppercase; border-left: 4px solid var(--ffr-red); padding-left: 10px; }
         .recap-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        .recap-match { font-weight: 700; width: 45%; }
+        .recap-info { display: flex; flex-direction: column; width: 45%; }
+        .recap-match { font-weight: 700; }
+        .recap-sub { font-size: 0.75rem; color: #666; margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+        .recap-sub img { width: 16px; height: 12px; border-radius: 2px; }
         .recap-prono { width: 30%; text-align: center; color: #555; font-weight: 700; }
         .recap-pts { width: 25%; text-align: right; font-weight: 900; }
+        .pts-badge-sm { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; color: #333; background: #e0e0e0; display: inline-block; min-width: 30px; text-align: center; font-weight: 700; }
         .pts-pending { background: #eee; color: #999; font-size: 0.7rem; font-style: italic; padding: 4px 8px; border-radius: 4px; }
 
         /* DOCK */
@@ -292,18 +296,17 @@
     <script>
         // --- 1. DATA (Joueurs Réinitialisés pour le Tournoi) ---
         const playersDB = [
-            { "name": "Lison Desmeuzes", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=10", "analysis": "Prête pour le tournoi !" },
-            { "name": "Thibault Montagnon", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=11", "analysis": "En attente des premiers matchs." },
-            { "name": "Maël Kounga", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=12", "analysis": "Nouveau départ." },
-            { "name": "Thomas Lesur", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=13", "analysis": "Prêt à en découdre." },
-            { "name": "Henri Dewavrin", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=14", "analysis": "Objectif podium." },
-            { "name": "Thomas André", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=15", "analysis": "Tout est possible." },
-            { "name": "Cyril Magagnin", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=16", "analysis": "A suivre de près." },
-            { "name": "Alexandre Anginot", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=17", "analysis": "Outsider sérieux." },
-            { "name": "Camille Pedamond", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=18", "analysis": "Prête pour la compétition." },
-            { "name": "Louis Georgeonnet", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=19", "analysis": "En embuscade." },
-            { "name": "Mathis Vanbrabant", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=20", "analysis": "Nouvelle saison, nouvelles chances." },
-            { "name": "Corinne Dumas", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "https://i.pravatar.cc/150?img=21", "analysis": "Attention aux surprises." }
+            { "name": "Lison Desmeuzes", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Lison_Desmeuzes.jpg", "analysis": "Prête pour le tournoi !" },
+            { "name": "Thibault Montagnon", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Thibault_Montagnon.jpg", "analysis": "En attente des premiers matchs." },
+            { "name": "Maël Kounga", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Mael_Kounga.jpg", "analysis": "Nouveau départ." },
+            { "name": "Thomas Lesur", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Thomas_Lesur.jpg", "analysis": "Prêt à en découdre." },
+            { "name": "Henri Dewavrin", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Henri_Dewavrin.jpg", "analysis": "Objectif podium." },
+            { "name": "Cyril Magagnin", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Cyril_Magagnin.jpg", "analysis": "A suivre de près." },
+            { "name": "Alexandre Anginot", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Alexandre_Anginot.jpg", "analysis": "Outsider sérieux." },
+            { "name": "Camille Pedamond", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Camille_Pedamond.jpg", "analysis": "Prête pour la compétition." },
+            { "name": "Louis Georgeonnet", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Louis_Georgeonnet.jpg", "analysis": "En embuscade." },
+            { "name": "Corinne Dumas", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Corinne_Dumas.jpg", "analysis": "Attention aux surprises." },
+            { "name": "Emilie Philippe", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Emilie_Philippe.jpg", "analysis": "La nouvelle recrue." }
         ];
 
         // --- 2. LOGIQUE ---
@@ -328,7 +331,6 @@
                 }
             });
 
-            // Affichage simplifié si 0 points (début de tournoi)
             if(displayData[0].currentPts === 0) {
                  podiumContainer.innerHTML = `<div style="text-align:center; padding:20px; color:#666;">Le classement s'affichera ici après la 1ère journée.</div>`;
             } else if(displayData.length >= 3) {
@@ -391,7 +393,6 @@
             const data = playersDB.find(p => p.name === name); if(!data) return;
             const currentTotal = getPointsForFilter(data, 'all');
             
-            // Calcul Rang (tous ex-aequo au début)
             const currentRank = 1; 
 
             select.value = name;
