@@ -60,14 +60,32 @@
         .btn-prono:hover { background-color: #1a7ec9; transform: scale(1.02); }
         .countdown-timer { font-family: 'Roboto Mono', monospace; font-size: 1rem; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; background: rgba(0,0,0,0.6); display: flex; align-items: center; gap: 10px; backdrop-filter: blur(5px); }
 
-        /* RESULTATS (Vide pour l'instant) */
-        .no-results { text-align: center; padding: 50px; background: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .no-results i { font-size: 3rem; color: #ccc; margin-bottom: 20px; }
-        .no-results h3 { color: var(--ffr-blue); font-weight: 900; text-transform: uppercase; }
+        /* RESULTATS */
+        .result-banner { 
+            border-left: 6px solid var(--ffr-action); cursor: pointer; margin-bottom: 0; 
+            border-bottom-left-radius: 0; border-bottom-right-radius: 0; 
+            min-height: 150px; padding: 30px 40px;
+        }
+        .final-score { font-size: 2.2rem; font-weight: 900; background: rgba(0,0,0,0.3); padding: 5px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); min-width: 140px; text-align: center; }
+        .official-result-row { display: flex; gap: 20px; font-size: 0.9rem; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 20px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3); }
+        .official-item { display: flex; align-items: center; gap: 8px; font-weight: 700; }
         
         .result-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: var(--white); border-radius: 0 0 8px 8px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .result-details.open { max-height: 2500px; }
-        
+        .player-row-complex { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 1px solid #eee; cursor: pointer; transition: background 0.2s; }
+        .player-row-complex:hover { background: #f9f9f9; }
+        .p-info { display: flex; align-items: center; gap: 15px; width: 25%; }
+        .p-pic { width: 45px; height: 45px; border-radius: 50%; background: #eee; background-size: cover; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .p-name { font-weight: 700; color: var(--ffr-blue); font-size: 1rem; }
+        .p-data { width: 55%; display: flex; align-items: center; justify-content: center; gap: 30px; }
+        .score-neutral { background: #f0f2f5; color: #333; padding: 8px 15px; border-radius: 6px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 1.2rem; min-width: 80px; text-align: center; }
+        .extra-info { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #555; font-weight: 500; }
+        .info-item { display: flex; align-items: center; gap: 8px; }
+        .flag-mini { width: 18px; height: 13px; border-radius: 2px; object-fit: cover; vertical-align: middle; }
+        .points-box { display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: 5px; padding: 8px 15px; border-radius: 8px; background: #fff; border: 2px solid #e0e0e0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-width: 70px; color: var(--ffr-blue); }
+        .pts-val { font-weight: 900; font-size: 1.3rem; line-height: 1; }
+        .pts-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
+
         /* REGLEMENT */
         .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px 0; }
         .rule-card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--ffr-blue); transition: transform 0.2s; }
@@ -137,10 +155,7 @@
         .recap-list { margin: 0 20px 40px 20px; }
         .recap-title { font-size: 1rem; font-weight: 900; color: var(--ffr-blue); margin-bottom: 15px; text-transform: uppercase; border-left: 4px solid var(--ffr-red); padding-left: 10px; }
         .recap-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        .recap-info { display: flex; flex-direction: column; width: 45%; }
-        .recap-match { font-weight: 700; }
-        .recap-sub { font-size: 0.75rem; color: #666; margin-top: 2px; display: flex; align-items: center; gap: 5px; }
-        .recap-sub img { width: 16px; height: 12px; border-radius: 2px; }
+        .recap-match { font-weight: 700; width: 45%; }
         .recap-prono { width: 30%; text-align: center; color: #555; font-weight: 700; }
         .recap-pts { width: 25%; text-align: right; font-weight: 900; }
         .pts-badge-sm { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; color: #333; background: #e0e0e0; display: inline-block; min-width: 30px; text-align: center; font-weight: 700; }
@@ -177,29 +192,36 @@
         <h2 class="section-headline" id="main-title">XV Masculin - Tournoi des Six Nations 2026</h2>
 
         <div id="tab-matchs">
-            <div class="match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p08wqrtc.jpg');">
-                <div class="banner-left">Journée 1</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">5 FÉV. 2026</div><div class="match-time">21H10</div></div><img src="https://flagcdn.com/w160/ie.png" class="flag-icon" alt="IE"><span class="team-name left">Irlande</span></div><div class="stadium-name">Saint-Denis (Stade de France)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UQVkwWDNTWlUwVU4wREUxN05TR1BEQ0JaQS4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j1">--:--:--:--</div></div>
-            </div>
             <div class="match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p083d373.jpg');">
-                <div class="banner-left">Journée 2</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">Galles</span><img src="https://flagcdn.com/w160/gb-wls.png" class="flag-icon" alt="WAL"><div class="match-info-center"><div class="match-date">15 FÉV. 2026</div><div class="match-time">16H00</div></div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div><div class="stadium-name">Cardiff (Principality Stadium)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UNkc4Wk1TQkdZTDVGNzVMMlMzU1g1U0pIMS4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-29</div></div>
+                <div class="banner-left">Journée 2</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">Galles</span><img src="https://flagcdn.com/w160/gb-wls.png" class="flag-icon" alt="WAL"><div class="match-info-center"><div class="match-date">15 FÉV. 2026</div><div class="match-time">16H00</div></div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div><div class="stadium-name">Cardiff (Principality Stadium)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UNkc4Wk1TQkdZTDVGNzVMMlMzU1g1U0pIMS4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j2">J-29</div></div>
             </div>
             <div class="match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p0827st6.jpg');">
-                <div class="banner-left">Journée 3</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">22 FÉV. 2026</div><div class="match-time">16H10</div></div><img src="https://flagcdn.com/w160/it.png" class="flag-icon" alt="IT"><span class="team-name left">Italie</span></div><div class="stadium-name">Lille (Decathlon Arena)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UMUZBN1hSQ1ZDMkU4SVNYVThPWFBGVVBXUi4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-36</div></div>
+                <div class="banner-left">Journée 3</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">22 FÉV. 2026</div><div class="match-time">16H10</div></div><img src="https://flagcdn.com/w160/it.png" class="flag-icon" alt="IT"><span class="team-name left">Italie</span></div><div class="stadium-name">Lille (Decathlon Arena)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UMUZBN1hSQ1ZDMkU4SVNYVThPWFBGVVBXUi4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j3">J-36</div></div>
             </div>
             <div class="match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p0bpnqx3.jpg');">
-                <div class="banner-left">Journée 4</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">Écosse</span><img src="https://flagcdn.com/w160/gb-sct.png" class="flag-icon" alt="SCO"><div class="match-info-center"><div class="match-date">8 MARS 2026</div><div class="match-time">16H00</div></div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div><div class="stadium-name">Édimbourg (Murrayfield)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UN0VVUlZPNU84SEI3SzZRR0xJMUVOUUk2My4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-50</div></div>
+                <div class="banner-left">Journée 4</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">Écosse</span><img src="https://flagcdn.com/w160/gb-sct.png" class="flag-icon" alt="SCO"><div class="match-info-center"><div class="match-date">8 MARS 2026</div><div class="match-time">16H00</div></div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div><div class="stadium-name">Édimbourg (Murrayfield)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UN0VVUlZPNU84SEI3SzZRR0xJMUVOUUk2My4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j4">J-50</div></div>
             </div>
             <div class="match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p081mlp5.jpg');">
-                <div class="banner-left">Journée 5</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">14 MARS 2026</div><div class="match-time">21H10</div></div><img src="https://flagcdn.com/w160/gb-eng.png" class="flag-icon" alt="ENG"><span class="team-name left">Angleterre</span></div><div class="stadium-name">Saint-Denis (Stade de France)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9URDhKTUtaRDFPUTlNTUVUUDk5RzZCTzFTRS4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer">J-56</div></div>
+                <div class="banner-left">Journée 5</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">14 MARS 2026</div><div class="match-time">21H10</div></div><img src="https://flagcdn.com/w160/gb-eng.png" class="flag-icon" alt="ENG"><span class="team-name left">Angleterre</span></div><div class="stadium-name">Saint-Denis (Stade de France)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9URDhKTUtaRDFPUTlNTUVUUDk5RzZCTzFTRS4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j5">J-56</div></div>
             </div>
         </div>
 
         <div id="tab-results" style="display:none;">
-            <div class="no-results">
-                <i class="fas fa-clock"></i>
-                <h3>Aucun résultat pour le moment</h3>
-                <p>Les résultats du Tournoi des Six Nations apparaîtront ici après le premier match.</p>
+            <div class="result-banner match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://stadedefrance-s3-prod.s3.eu-west-1.amazonaws.com/s3fs-public/2021-08/France%20-%20Fidji%202021%201920x1080.jpg');" onclick="toggleDetails('detail-1', this)">
+                <div class="banner-left">Dernier Résultat</div>
+                <div class="banner-center">
+                    <div class="competition-tag">Tournoi des Six Nations 2026</div>
+                    <div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="final-score"> 36 - 14 </div><img src="https://flagcdn.com/w160/ie.png" class="flag-icon" alt="IE"><span class="team-name left">Irlande</span></div>
+                    <div class="official-result-row">
+                        <div class="official-item">🏉 1er Essai: <img src="https://flagcdn.com/w20/fr.png"> France</div>
+                        <div class="official-item">👑 HOM: Guillard</div>
+                    </div>
+                    <div class="stadium-name">Stade de France (Terminé)</div>
+                </div>
+                <div class="banner-right" style="justify-content:center;"><i class="fas fa-chevron-down toggle-icon" style="font-size:1.5rem;"></i></div>
             </div>
+            <div id="detail-1" class="result-details">
+                </div>
         </div>
 
         <div id="tab-reglement" style="display:none;">
@@ -262,7 +284,7 @@
                     <div><div class="big-points-val" id="p-total"></div><div class="big-points-label">POINTS TOTAL</div></div>
                     <div class="mini-stats-col">
                         <div class="mini-stat"><i class="fas fa-list-ol"></i> Rang: <b id="p-rank"></b></div>
-                        <div class="mini-stat"><i class="fas fa-check-double"></i> Pronos: <b>0</b></div>
+                        <div class="mini-stat"><i class="fas fa-check-double"></i> Pronos: <b>1</b></div>
                     </div>
                 </div>
                 <div class="stat-circles-row">
@@ -294,19 +316,18 @@
     </div>
 
     <script>
-        // --- 1. DATA (Joueurs Réinitialisés pour le Tournoi) ---
+        // --- 1. DATA (Joueurs mis à jour J1 - Sans Corinne, Mathis, Thomas A.) ---
         const playersDB = [
-            { "name": "Lison Desmeuzes", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Lison_Desmeuzes.jpg", "analysis": "Prête pour le tournoi !" },
-            { "name": "Thibault Montagnon", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Thibault_Montagnon.jpg", "analysis": "En attente des premiers matchs." },
-            { "name": "Maël Kounga", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Mael_Kounga.jpg", "analysis": "Nouveau départ." },
-            { "name": "Thomas Lesur", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Thomas_Lesur.jpg", "analysis": "Prêt à en découdre." },
-            { "name": "Henri Dewavrin", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Henri_Dewavrin.jpg", "analysis": "Objectif podium." },
-            { "name": "Cyril Magagnin", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Cyril_Magagnin.jpg", "analysis": "A suivre de près." },
-            { "name": "Alexandre Anginot", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Alexandre_Anginot.jpg", "analysis": "Outsider sérieux." },
-            { "name": "Camille Pedamond", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Camille_Pedamond.jpg", "analysis": "Prête pour la compétition." },
-            { "name": "Louis Georgeonnet", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Louis_Georgeonnet.jpg", "analysis": "En embuscade." },
-            { "name": "Corinne Dumas", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Corinne_Dumas.jpg", "analysis": "Attention aux surprises." },
-            { "name": "Emilie Philippe", "dailyPoints": [0,0,0,0,0], "exact": 0, "good": 0, "gap": 0, "essais": 0, "hom": 0, "img": "images/Emilie_Philippe.jpg", "analysis": "La nouvelle recrue." }
+            { "name": "Lison Desmeuzes", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 16, "essais": 1, "hom": 0, "img": "images/Lison_Desmeuzes.jpg", "analysis": "Plus précise dans ses analyses que ses pronos, on espère qu'avec deux yeux ça sera mieux.", "matchTest": { "score": "29 - 23", "pts": 2, "try": "fr", "hom": "LBB" } },
+            { "name": "Thibault Montagnon", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 7, "essais": 1, "hom": 0, "img": "images/Thibault_Montagnon.jpg", "analysis": "Grand vainqueur de MPG, attendez vous au doublé.", "matchTest": { "score": "32 - 17", "pts": 2, "try": "fr", "hom": "Jalibert" } },
+            { "name": "Maël Kounga", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 10, "essais": 1, "hom": 0, "img": "images/Mael_Kounga.jpg", "analysis": "Passer 4 jours au Stade de France ne l'ont pas aidé pour les pronos, c'est un cas désespére.", "matchTest": { "score": "38 - 22", "pts": 2, "try": "fr", "hom": "Dupont" } },
+            { "name": "Thomas Lesur", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 15, "essais": 1, "hom": 0, "img": "images/Thomas_Lesur.jpg", "analysis": "Big T par ci, Big T par là, on ne serait pas contre un deuxième cheesecake pour le goûter.", "matchTest": { "score": "28 - 21", "pts": 2, "try": "fr", "hom": "Ramos" } },
+            { "name": "Henri Dewavrin", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 17, "essais": 1, "hom": 0, "img": "images/Henri_Dewavrin.jpg", "analysis": "Derrière ses grands airs de gentleman se cache un pronostiqueur prêt à tout pour la victoire.", "matchTest": { "score": "27 - 22", "pts": 2, "try": "fr", "hom": "Dupont" } },
+            { "name": "Cyril Magagnin", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 6, "essais": 1, "hom": 0, "img": "images/Cyril_Magagnin.jpg", "analysis": "Ne pensez pas qu'il vous laissera gagner malgré son congé paternité.", "matchTest": { "score": "35 - 19", "pts": 2, "try": "fr", "hom": "Jalibert" } },
+            { "name": "Alexandre Anginot", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 8, "essais": 1, "hom": 0, "img": "images/Alexandre_Anginot.jpg", "analysis": "Ses derniers pronos avec nous, prêt à tout pour laisser sa trace de vainqueur.", "matchTest": { "score": "37 - 21", "pts": 2, "try": "fr", "hom": "LBB" } },
+            { "name": "Camille Pedamond", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 5, "essais": 1, "hom": 0, "img": "images/Camille_Pedamond.jpg", "analysis": "Ne pas se laisser amadouer par son bras cassé, elle est là pour gagner.", "matchTest": { "score": "35 - 18", "pts": 2, "try": "fr", "hom": "Dupont" } },
+            { "name": "Louis Georgeonnet", "dailyPoints": [3,0,0,0,0], "exact": 0, "good": 1, "gap": 2, "essais": 1, "hom": 0, "img": "images/Louis_Georgeonnet.jpg", "analysis": "Le seul à pronostiquer un grand Chelem du Stade Rennais.", "matchTest": { "score": "36 - 16", "pts": 3, "try": "fr", "hom": "Jalibert" } },
+            { "name": "Emilie Philippe", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 11, "essais": 1, "hom": 0, "img": "images/Emilie_Philippe.jpg", "analysis": "Attention à vous, Emilie is in Paris et pas pour enfiler des perles !!", "matchTest": { "score": "33 - 22", "pts": 2, "try": "fr", "hom": "Ollivon" } }
         ];
 
         // --- 2. LOGIQUE ---
@@ -321,19 +342,20 @@
             const podiumContainer = document.getElementById('podium-container');
             listContainer.innerHTML = ''; podiumContainer.innerHTML = '';
             
+            // SORTING LOGIC: 1. Points (Desc), 2. Gap (Asc)
             let displayData = playersDB.map(p => { 
                 return { ...p, currentPts: getPointsForFilter(p, filter) }; 
             }).sort((a, b) => {
                 if (b.currentPts !== a.currentPts) {
-                    return b.currentPts - a.currentPts; 
+                    return b.currentPts - a.currentPts; // Points Desc
                 } else {
-                    return a.gap - b.gap; 
+                    // For gap, we only care about active players (pts > 0) or valid gap diffs
+                    if (a.currentPts === 0) return 1;
+                    return a.gap - b.gap; // Gap Asc (Smaller gap is better)
                 }
             });
 
-            if(displayData[0].currentPts === 0) {
-                 podiumContainer.innerHTML = `<div style="text-align:center; padding:20px; color:#666;">Le classement s'affichera ici après la 1ère journée.</div>`;
-            } else if(displayData.length >= 3) {
+            if(displayData.length >= 3) {
                 const p1 = displayData[0]; const p2 = displayData[1]; const p3 = displayData[2];
                 podiumContainer.innerHTML = `
                     <div class="podium-card rank-2" onclick="loadProfile('${p2.name}')"><div class="rank-circle" style="background-image:url('${p2.img}');"><div class="rank-badge">2</div></div><div class="podium-name">${p2.name}</div><div class="podium-pts">${p2.currentPts} PTS</div></div>
@@ -343,7 +365,7 @@
             
             displayData.forEach((player, index) => {
                 const rank = index + 1; 
-                const trendIcon = '<i class="fas fa-minus trend-icon t-stable"></i>';
+                let trendIcon = '<i class="fas fa-minus trend-icon t-stable"></i>';
                 const row = document.createElement('div'); row.className = "lb-row"; row.onclick = () => loadProfile(player.name);
                 row.innerHTML = `<div class="col-rank ${rank <=3 ? 'rank-top' : ''}">${rank} ${trendIcon}</div><div class="col-user"><div class="lb-avatar" style="background-image:url('${player.img}');"></div><span class="lb-name">${player.name}</span></div><div class="col-stat">${player.exact}/${player.good}</div><div class="col-stat">${player.gap}</div><div class="col-stat">${player.essais}</div><div class="col-stat">${player.hom}</div><div class="col-pts">${player.currentPts}</div>`;
                 listContainer.appendChild(row);
@@ -352,6 +374,27 @@
         function updateLeaderboard(filter, el) {
             document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
             el.classList.add('active'); renderLeaderboard(filter);
+        }
+        function renderResultDetails() {
+            const container = document.getElementById('detail-1'); container.innerHTML = '';
+            // Trie par nom
+            const sortedPlayers = [...playersDB].sort((a,b) => a.name.localeCompare(b.name));
+            sortedPlayers.forEach(p => {
+                const mt = p.matchTest;
+                const html = `
+                <div class="player-row-complex" onclick="loadProfile('${p.name}')">
+                    <div class="p-info"><div class="p-pic" style="background-image:url('${p.img}');"></div><span class="p-name">${p.name}</span></div>
+                    <div class="p-data">
+                        <div class="score-neutral">${mt.score}</div>
+                        <div class="extra-info">
+                            <div class="info-item">🏉 1er Essai: ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png" class="flag-mini">' : (mt.try === 'fj' ? '<img src="https://flagcdn.com/w20/fj.png" class="flag-mini">' : mt.try)}</div>
+                            <div class="info-item">🏅 HOM: ${mt.hom}</div>
+                        </div>
+                    </div>
+                    <div class="points-box"><span class="pts-val">${mt.pts}</span><span class="pts-label">PTS</span></div>
+                </div>`;
+                container.innerHTML += html;
+            });
         }
         
         const navPills = document.querySelectorAll('.nav-pill'); const tabs = ['matchs', 'results', 'reglement', 'classement', 'stats']; const mainTitle = document.getElementById('main-title');
@@ -370,7 +413,7 @@
         function initProfileSelect() {
             const select = document.getElementById('profileSelect'); 
             select.innerHTML = '<option value="reset" selected disabled>Choisir un joueur...</option>';
-            const sortedByRank = [...playersDB].sort((a,b) => a.name.localeCompare(b.name));
+            const sortedByRank = [...playersDB].sort((a,b) => getPointsForFilter(b, 'all') - getPointsForFilter(a, 'all'));
             sortedByRank.forEach(p => { let opt = document.createElement('option'); opt.value = p.name; opt.innerHTML = p.name; select.appendChild(opt); });
         }
         function loadProfile(name) {
@@ -391,10 +434,14 @@
             if (name === 'reset') { return; }
             
             const data = playersDB.find(p => p.name === name); if(!data) return;
+            const sortedAll = [...playersDB].sort((a,b) => {
+                if (b.dailyPoints.reduce((x,y)=>x+y) !== a.dailyPoints.reduce((x,y)=>x+y))
+                    return b.dailyPoints.reduce((x,y)=>x+y) - a.dailyPoints.reduce((x,y)=>x+y);
+                return a.gap - b.gap;
+            });
+            const currentRank = sortedAll.findIndex(p => p.name === name) + 1;
             const currentTotal = getPointsForFilter(data, 'all');
             
-            const currentRank = 1; 
-
             select.value = name;
             pName.innerText = name;
             pAvatar.style.backgroundImage = `url('${data.img}')`;
@@ -405,14 +452,23 @@
             pHom.innerText = data.hom;
             pAnalysis.innerText = data.analysis;
             
-            cpBons.style.setProperty('--c-val', '0%');
-            cpEssais.style.setProperty('--c-val', '0%'); 
-            cpHom.style.setProperty('--c-val', '0%'); 
+            const totalPronos = 1; // 1 match joué
+            cpBons.style.setProperty('--c-val', `${(data.good / totalPronos * 100)}%`);
+            cpEssais.style.setProperty('--c-val', `${(data.essais / totalPronos * 100)}%`); 
+            cpHom.style.setProperty('--c-val', `${(data.hom / totalPronos * 100)}%`); 
 
             historyContainer.innerHTML = '';
-            // Historique Tournoi (Vide pour l'instant)
+            // Historique Tournoi
+            const mt = data.matchTest;
             const htmlHistory = `
-                <div class="recap-row"><span class="recap-match">France - Irlande</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
+                <div class="recap-row">
+                    <div class="recap-info">
+                        <span class="recap-match">France - Irlande</span>
+                        <div class="recap-sub">🏉 ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png">' : mt.try} 🏅 ${mt.hom}</div>
+                    </div>
+                    <span class="recap-prono">${mt.score}</span>
+                    <span class="recap-pts"><span class="pts-badge-sm">${mt.pts} PTS</span></span>
+                </div>
                 <div class="recap-row"><span class="recap-match">Galles - France</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
                 <div class="recap-row"><span class="recap-match">France - Italie</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
                 <div class="recap-row"><span class="recap-match">Écosse - France</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
@@ -422,20 +478,53 @@
             switchTab('stats');
         }
         
+        function toggleDetails(id, banner) {
+            const detail = document.getElementById(id);
+            if(detail.classList.contains('open')) { 
+                detail.classList.remove('open'); 
+                // banner.classList.remove('open'); // Optional visual feedback
+            } else { 
+                detail.classList.add('open'); 
+                // banner.classList.add('open'); 
+            }
+        }
+
         initProfileSelect();
         renderLeaderboard('all'); 
+        renderResultDetails();
         
         switchTab('matchs'); // Force accueil MATCHS
 
         function startTimer() {
-            const target = new Date("Feb 05, 2026 21:10:00").getTime();
-            const el = document.getElementById("timer-j1"); if(!el) return;
+            // Timer global qui gère tous les ID de timers
+            const timers = [
+                { id: "timer-j2", date: "Feb 15, 2026 16:00:00" },
+                { id: "timer-j3", date: "Feb 22, 2026 16:10:00" },
+                { id: "timer-j4", date: "Mar 08, 2026 16:00:00" },
+                { id: "timer-j5", date: "Mar 14, 2026 21:10:00" }
+            ];
+
             setInterval(() => {
-                const now = new Date().getTime(); const dist = target - now;
-                if (dist < 0) { el.innerHTML = "EN COURS"; return; }
-                const d = Math.floor(dist / (1000 * 60 * 60 * 24)); const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)); const s = Math.floor((dist % (1000 * 60)) / 1000);
-                const fmt = (n) => n.toString().padStart(2, '0'); el.innerHTML = `<i class="far fa-clock"></i> ${fmt(d)}j ${fmt(h)}:${fmt(m)}:${fmt(s)}`;
+                const now = new Date().getTime();
+                
+                timers.forEach(t => {
+                    const el = document.getElementById(t.id);
+                    if (!el) return;
+
+                    const target = new Date(t.date).getTime();
+                    const dist = target - now;
+
+                    if (dist < 0) { 
+                        el.innerHTML = "TERMINÉ"; 
+                    } else {
+                        const d = Math.floor(dist / (1000 * 60 * 60 * 24)); 
+                        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)); 
+                        const s = Math.floor((dist % (1000 * 60)) / 1000);
+                        // Format court pour mobile
+                        el.innerHTML = `<i class="far fa-clock"></i> ${d}j ${h}h ${m}m`;
+                    }
+                });
             }, 1000);
         }
         startTimer();
