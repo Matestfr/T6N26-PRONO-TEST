@@ -21,7 +21,6 @@
             /* Couleurs */
             --trend-up: #2e7d32; --trend-down: #c62828; --trend-stable: #999;
             --gold: #FFD700; --silver: #C0C0C0; --bronze: #CD7F32;
-            --border-win: #2e7d32; --border-draw: #f57f17; --border-loss: #c62828;
         }
 
         body { font-family: 'Roboto', sans-serif; background-color: var(--grey-bg); margin: 0; padding-bottom: 120px; color: #1a1a1a; }
@@ -70,7 +69,7 @@
         .official-result-row { display: flex; gap: 20px; font-size: 0.9rem; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 20px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3); }
         .official-item { display: flex; align-items: center; gap: 8px; font-weight: 700; }
         
-        .result-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: var(--white); border-radius: 0 0 8px 8px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .result-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: var(--white); border-radius: 0 0 8px 8px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .result-details.open { max-height: 2500px; }
         .player-row-complex { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 1px solid #eee; cursor: pointer; transition: background 0.2s; }
         .player-row-complex:hover { background: #f9f9f9; }
@@ -127,7 +126,7 @@
         .lb-row:hover .lb-name { text-decoration-color: var(--ffr-blue); }
         .col-stat { width: 12%; text-align: center; color: #555; }
         .col-pts { width: 15%; text-align: right; font-weight: 900; font-size: 1.1rem; color: var(--ffr-blue); }
-        .trend-icon { font-size: 0.7rem; }
+        .trend-icon { font-size: 0.7rem; margin-left: 4px; }
         .t-up { color: var(--trend-up); } .t-down { color: var(--trend-down); } .t-stable { color: var(--trend-stable); opacity: 0.5; }
 
         /* PROFIL */
@@ -160,6 +159,7 @@
         .recap-pts { width: 25%; text-align: right; font-weight: 900; }
         .pts-badge-sm { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; color: #333; background: #e0e0e0; display: inline-block; min-width: 30px; text-align: center; font-weight: 700; }
         .pts-pending { background: #eee; color: #999; font-size: 0.7rem; font-style: italic; padding: 4px 8px; border-radius: 4px; }
+        .recap-sub { font-size: 0.75rem; color: #777; margin-top: 3px; font-weight: 400; }
 
         /* DOCK */
         .floating-dock-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2000; width: auto; }
@@ -192,9 +192,6 @@
         <h2 class="section-headline" id="main-title">XV Masculin - Tournoi des Six Nations 2026</h2>
 
         <div id="tab-matchs">
-            <div class="match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p083d373.jpg');">
-                <div class="banner-left">Journée 2</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">Galles</span><img src="https://flagcdn.com/w160/gb-wls.png" class="flag-icon" alt="WAL"><div class="match-info-center"><div class="match-date">15 FÉV. 2026</div><div class="match-time">16H00</div></div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div><div class="stadium-name">Cardiff (Principality Stadium)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UNkc4Wk1TQkdZTDVGNzVMMlMzU1g1U0pIMS4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j2">J-29</div></div>
-            </div>
             <div class="match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p0827st6.jpg');">
                 <div class="banner-left">Journée 3</div><div class="banner-center"><div class="competition-tag">Tournoi des Six Nations 2026</div><div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="match-info-center"><div class="match-date">22 FÉV. 2026</div><div class="match-time">16H10</div></div><img src="https://flagcdn.com/w160/it.png" class="flag-icon" alt="IT"><span class="team-name left">Italie</span></div><div class="stadium-name">Lille (Decathlon Arena)</div></div><div class="banner-right"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=wOZ5yWGB7UaDQiFv8A4zQRTNDiga3dVFsRUeObeiJV9UMUZBN1hSQ1ZDMkU4SVNYVThPWFBGVVBXUi4u" class="btn-prono" target="_blank"><i class="fas fa-ticket-alt"></i> Pronostiquer</a><div class="countdown-timer" id="timer-j3">J-36</div></div>
             </div>
@@ -207,18 +204,26 @@
         </div>
 
         <div id="tab-results" style="display:none;">
-            <div class="result-banner match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://stadedefrance-s3-prod.s3.eu-west-1.amazonaws.com/s3fs-public/2021-08/France%20-%20Fidji%202021%201920x1080.jpg');" onclick="toggleDetails('detail-1', this)">
-                <div class="banner-left">Dernier Résultat</div>
+            <div class="result-banner match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p083d373.jpg');" onclick="toggleDetails('detail-2', this)">
+                <div class="banner-left">Journée 2</div>
                 <div class="banner-center">
-                    <div class="competition-tag">Tournoi des Six Nations 2026</div>
-                    <div class="duel-row"><span class="team-name right">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><div class="final-score"> 36 - 14 </div><img src="https://flagcdn.com/w160/ie.png" class="flag-icon" alt="IE"><span class="team-name left">Irlande</span></div>
+                    <div class="duel-row"><span class="team-name right">Galles</span><img src="https://flagcdn.com/w160/gb-wls.png" class="flag-icon" alt="WAL"><div class="final-score"> 12 - 54 </div><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" alt="FR"><span class="team-name left">France</span></div>
                     <div class="official-result-row">
                         <div class="official-item">🏉 1er Essai: <img src="https://flagcdn.com/w20/fr.png"> France</div>
-                        <div class="official-item">👑 HOM: Guillard</div>
+                        <div class="official-item">👑 HOM: Jalibert</div>
                     </div>
-                    <div class="stadium-name">Stade de France (Terminé)</div>
                 </div>
                 <div class="banner-right" style="justify-content:center;"><i class="fas fa-chevron-down toggle-icon" style="font-size:1.5rem;"></i></div>
+            </div>
+            <div id="detail-2" class="result-details">
+                </div>
+
+            <div class="result-banner match-banner" style="background: linear-gradient(var(--banner-overlay), var(--banner-overlay)), url('https://ichef.bbci.co.uk/images/ic/640x360/p08w19tn.jpg'); opacity: 0.9; margin-top:20px;" onclick="toggleDetails('detail-1', this)">
+                <div class="banner-left">Journée 1</div>
+                <div class="banner-center">
+                    <div class="duel-row"><span class="team-name right" style="font-size:1.4rem;">France</span><img src="https://flagcdn.com/w160/fr.png" class="flag-icon" style="width:60px; height:60px;" alt="FR"><div class="final-score" style="font-size:1.6rem; min-width:100px;"> 36 - 14 </div><img src="https://flagcdn.com/w160/ie.png" class="flag-icon" style="width:60px; height:60px;" alt="IE"><span class="team-name left" style="font-size:1.4rem;">Irlande</span></div>
+                </div>
+                <div class="banner-right" style="justify-content:center;"><i class="fas fa-chevron-down toggle-icon" style="font-size:1rem;"></i></div>
             </div>
             <div id="detail-1" class="result-details">
                 </div>
@@ -284,7 +289,7 @@
                     <div><div class="big-points-val" id="p-total"></div><div class="big-points-label">POINTS TOTAL</div></div>
                     <div class="mini-stats-col">
                         <div class="mini-stat"><i class="fas fa-list-ol"></i> Rang: <b id="p-rank"></b></div>
-                        <div class="mini-stat"><i class="fas fa-check-double"></i> Pronos: <b>1</b></div>
+                        <div class="mini-stat"><i class="fas fa-check-double"></i> Pronos: <b>2</b></div>
                     </div>
                 </div>
                 <div class="stat-circles-row">
@@ -316,25 +321,75 @@
     </div>
 
     <script>
-        // --- 1. DATA (Joueurs mis à jour J1 - Sans Corinne, Mathis, Thomas A.) ---
+        // --- 1. DATA (Scores J1 & J2 inclus) ---
+        // J1: 36-14 (FR), Essai FR, HOM Guillard (Simulé pour Louis qui avait fait le GC)
+        // J2: 12-54 (FR), Essai FR, HOM Jalibert
+        
         const playersDB = [
-            { "name": "Lison Desmeuzes", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 16, "essais": 1, "hom": 0, "img": "images/Lison_Desmeuzes.jpg", "analysis": "Plus précise dans ses analyses que ses pronos, on espère qu'avec deux yeux ça sera mieux.", "matchTest": { "score": "29 - 23", "pts": 2, "try": "fr", "hom": "LBB" } },
-            { "name": "Thibault Montagnon", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 7, "essais": 1, "hom": 0, "img": "images/Thibault_Montagnon.jpg", "analysis": "Grand vainqueur de MPG, attendez vous au doublé.", "matchTest": { "score": "32 - 17", "pts": 2, "try": "fr", "hom": "Jalibert" } },
-            { "name": "Maël Kounga", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 10, "essais": 1, "hom": 0, "img": "images/Mael_Kounga.jpg", "analysis": "Passer 4 jours au Stade de France ne l'ont pas aidé pour les pronos, c'est un cas désespére.", "matchTest": { "score": "38 - 22", "pts": 2, "try": "fr", "hom": "Dupont" } },
-            { "name": "Thomas Lesur", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 15, "essais": 1, "hom": 0, "img": "images/Thomas_Lesur.jpg", "analysis": "Big T par ci, Big T par là, on ne serait pas contre un deuxième cheesecake pour le goûter.", "matchTest": { "score": "28 - 21", "pts": 2, "try": "fr", "hom": "Ramos" } },
-            { "name": "Henri Dewavrin", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 17, "essais": 1, "hom": 0, "img": "images/Henri_Dewavrin.jpg", "analysis": "Derrière ses grands airs de gentleman se cache un pronostiqueur prêt à tout pour la victoire.", "matchTest": { "score": "27 - 22", "pts": 2, "try": "fr", "hom": "Dupont" } },
-            { "name": "Cyril Magagnin", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 6, "essais": 1, "hom": 0, "img": "images/Cyril_Magagnin.jpg", "analysis": "Ne pensez pas qu'il vous laissera gagner malgré son congé paternité.", "matchTest": { "score": "35 - 19", "pts": 2, "try": "fr", "hom": "Jalibert" } },
-            { "name": "Alexandre Anginot", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 8, "essais": 1, "hom": 0, "img": "images/Alexandre_Anginot.jpg", "analysis": "Ses derniers pronos avec nous, prêt à tout pour laisser sa trace de vainqueur.", "matchTest": { "score": "37 - 21", "pts": 2, "try": "fr", "hom": "LBB" } },
-            { "name": "Camille Pedamond", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 5, "essais": 1, "hom": 0, "img": "images/Camille_Pedamond.jpg", "analysis": "Bras cassé mais pronos boostés.", "matchTest": { "score": "35 - 18", "pts": 2, "try": "fr", "hom": "Dupont" } },
-            { "name": "Louis Georgeonnet", "dailyPoints": [3,0,0,0,0], "exact": 0, "good": 1, "gap": 2, "essais": 1, "hom": 0, "img": "images/Louis_Georgeonnet.jpg", "analysis": "Le seul à pronostiquer un grand Chelem du Stade Rennais.", "matchTest": { "score": "36 - 16", "pts": 3, "try": "fr", "hom": "Jalibert" } },
-            { "name": "Emilie Philippe", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 11, "essais": 1, "hom": 0, "img": "images/Emilie_Philippe.jpg", "analysis": "Attention à vous, Emilie is in Paris et pas pour enfiler des perles !!", "matchTest": { "score": "33 - 22", "pts": 2, "try": "fr", "hom": "Ollivon" } }
+            { "name": "Lison Desmeuzes", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 24, "essais": 2, "hom": 0, "img": "images/Lison_Desmeuzes.jpg", "analysis": "Plus précise dans ses analyses que ses pronos, on espère qu'avec deux yeux ça sera mieux.", 
+                "matchJ1": { "score": "29 - 23", "pts": 2, "try": "fr", "hom": "LBB" }, 
+                "matchJ2": { "score": "15 - 49", "pts": 2, "try": "fr", "hom": "LBB" } },
+            { "name": "Thibault Montagnon", "dailyPoints": [2,3,0,0,0], "exact": 0, "good": 2, "gap": 17, "essais": 2, "hom": 1, "img": "images/Thibault_Montagnon.jpg", "analysis": "Grand vainqueur de MPG, le flair de Jalibert a payé !", 
+                "matchJ1": { "score": "32 - 17", "pts": 2, "try": "fr", "hom": "Jalibert" },
+                "matchJ2": { "score": "12 - 64", "pts": 3, "try": "fr", "hom": "Jalibert" } },
+            { "name": "Maël Kounga", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 17, "essais": 2, "hom": 0, "img": "images/Mael_Kounga.jpg", "analysis": "Passer 4 jours au Stade de France ne l'ont pas aidé pour les pronos, c'est un cas désespére.", 
+                "matchJ1": { "score": "38 - 22", "pts": 2, "try": "fr", "hom": "Dupont" },
+                "matchJ2": { "score": "12 - 47", "pts": 2, "try": "fr", "hom": "LBB" } },
+            { "name": "Thomas Lesur", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 21, "essais": 2, "hom": 0, "img": "images/Thomas_Lesur.jpg", "analysis": "Big T par ci, Big T par là, on ne serait pas contre un deuxième cheesecake pour le goûter.", 
+                "matchJ1": { "score": "28 - 21", "pts": 2, "try": "fr", "hom": "Ramos" },
+                "matchJ2": { "score": "10 - 46", "pts": 2, "try": "fr", "hom": "LBB" } },
+            { "name": "Henri Dewavrin", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 17, "essais": 1, "hom": 0, "img": "images/Henri_Dewavrin.jpg", "analysis": "Absent pour la J2, il laisse filer le peloton de tête.", 
+                "matchJ1": { "score": "27 - 22", "pts": 2, "try": "fr", "hom": "Dupont" },
+                "matchJ2": { "score": "-- - --", "pts": 0, "try": "?", "hom": "?" } },
+            { "name": "Cyril Magagnin", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 15, "essais": 2, "hom": 0, "img": "images/Cyril_Magagnin.jpg", "analysis": "Ne pensez pas qu'il vous laissera gagner malgré son congé paternité.", 
+                "matchJ1": { "score": "35 - 19", "pts": 2, "try": "fr", "hom": "Jalibert" },
+                "matchJ2": { "score": "14 - 47", "pts": 2, "try": "fr", "hom": "Olivon" } },
+            { "name": "Alexandre Anginot", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 8, "essais": 1, "hom": 0, "img": "images/Alexandre_Anginot.jpg", "analysis": "Ses derniers pronos avec nous, prêt à tout pour laisser sa trace de vainqueur.", 
+                "matchJ1": { "score": "37 - 21", "pts": 2, "try": "fr", "hom": "LBB" },
+                "matchJ2": { "score": "-- - --", "pts": 0, "try": "?", "hom": "?" } },
+            { "name": "Camille Pedamond", "dailyPoints": [2,3,0,0,0], "exact": 0, "good": 2, "gap": 6, "essais": 2, "hom": 0, "img": "images/Camille_Pedamond.jpg", "analysis": "Bras cassé mais pronos boostés : le bonus d'écart lui rapporte gros !", 
+                "matchJ1": { "score": "35 - 18", "pts": 2, "try": "fr", "hom": "Dupont" },
+                "matchJ2": { "score": "10 - 53", "pts": 3, "try": "fr", "hom": "LBB" } },
+            { "name": "Louis Georgeonnet", "dailyPoints": [3,2,0,0,0], "exact": 0, "good": 2, "gap": 13, "essais": 2, "hom": 0, "img": "images/Louis_Georgeonnet.jpg", "analysis": "Le seul à pronostiquer un grand Chelem du Stade Rennais.", 
+                "matchJ1": { "score": "36 - 16", "pts": 3, "try": "fr", "hom": "Jalibert" },
+                "matchJ2": { "score": "12 - 43", "pts": 2, "try": "fr", "hom": "Dupont" } },
+            { "name": "Emilie Philippe", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 17, "essais": 2, "hom": 0, "img": "images/Emilie_Philippe.jpg", "analysis": "Attention à vous, Emilie is in Paris et pas pour enfiler des perles !!", 
+                "matchJ1": { "score": "33 - 22", "pts": 2, "try": "fr", "hom": "Ollivon" },
+                "matchJ2": { "score": "17 - 53", "pts": 2, "try": "fr", "hom": "LBB" } },
+            { "name": "Clemence Ruth", "dailyPoints": [0,2,0,0,0], "exact": 0, "good": 1, "gap": 7, "essais": 1, "hom": 0, "img": "images/Clemence_Ruth.jpg", "analysis": "Entrée en lice directe, elle ne perd pas de temps.", 
+                "matchJ1": { "score": "-- - --", "pts": 0, "try": "?", "hom": "?" },
+                "matchJ2": { "score": "12 - 47", "pts": 2, "try": "fr", "hom": "Ramos" } }
         ];
 
         // --- 2. LOGIQUE ---
-        function getPointsForFilter(player, filter) {
-            if (filter === 'all') return player.dailyPoints.reduce((a, b) => a + b, 0); 
-            const idx = parseInt(filter.replace('J', '')) - 1;
-            return player.dailyPoints.slice(0, idx + 1).reduce((a, b) => a + b, 0);
+
+        // Fonction pour calculer les points jusqu'à un filtre donné
+        function getPointsUpTo(player, dayIndex) { 
+            // dayIndex: 0 = J1, 1 = J2, etc.
+            if(dayIndex < 0) return 0;
+            return player.dailyPoints.slice(0, dayIndex + 1).reduce((a, b) => a + b, 0);
+        }
+
+        // Fonction pour obtenir le classement complet (noms et rangs) pour un jour donné
+        function getRankingsAtDay(dayIndex) {
+            let tempPlayers = playersDB.map(p => {
+                return { name: p.name, pts: getPointsUpTo(p, dayIndex), gap: p.gap }; // Note: gap is static for now, simpler
+            });
+            
+            // Tri: Points Desc, puis Gap Asc
+            tempPlayers.sort((a, b) => {
+                if (b.pts !== a.pts) return b.pts - a.pts;
+                // Si égalité de points, on regarde si les points sont > 0 pour départager au gap
+                if (a.pts > 0) return a.gap - b.gap;
+                return 0;
+            });
+
+            // Map Nom -> Rang
+            let rankMap = {};
+            tempPlayers.forEach((p, index) => {
+                rankMap[p.name] = index + 1;
+            });
+            return rankMap;
         }
         
         function renderLeaderboard(filter) {
@@ -342,19 +397,31 @@
             const podiumContainer = document.getElementById('podium-container');
             listContainer.innerHTML = ''; podiumContainer.innerHTML = '';
             
-            // SORTING LOGIC: 1. Points (Desc), 2. Gap (Asc)
-            let displayData = playersDB.map(p => { 
-                return { ...p, currentPts: getPointsForFilter(p, filter) }; 
-            }).sort((a, b) => {
-                if (b.currentPts !== a.currentPts) {
-                    return b.currentPts - a.currentPts; // Points Desc
-                } else {
-                    // For gap, we only care about active players (pts > 0) or valid gap diffs
-                    if (a.currentPts === 0) return 1;
-                    return a.gap - b.gap; // Gap Asc (Smaller gap is better)
-                }
-            });
+            // 1. Déterminer l'index du jour actuel et du jour précédent
+            let currentDayIdx = 1; // Par défaut 'all' = J2 (index 1)
+            if (filter !== 'all') {
+                currentDayIdx = parseInt(filter.replace('J', '')) - 1;
+            } else {
+                 currentDayIdx = 1; 
+            }
+            
+            const prevDayIdx = currentDayIdx - 1;
 
+            // 2. Calculer les rangs actuels et précédents
+            const currentRanks = getRankingsAtDay(currentDayIdx);
+            const prevRanks = (prevDayIdx >= 0) ? getRankingsAtDay(prevDayIdx) : null;
+
+            // 3. Préparer les données pour l'affichage
+            let displayData = playersDB.map(p => {
+                return { 
+                    ...p, 
+                    currentPts: getPointsUpTo(p, currentDayIdx),
+                    currentRank: currentRanks[p.name],
+                    prevRank: (prevRanks) ? prevRanks[p.name] : null
+                }; 
+            }).sort((a, b) => a.currentRank - b.currentRank);
+
+            // 4. Podium
             if(displayData.length >= 3) {
                 const p1 = displayData[0]; const p2 = displayData[1]; const p3 = displayData[2];
                 podiumContainer.innerHTML = `
@@ -363,37 +430,68 @@
                     <div class="podium-card rank-3" onclick="loadProfile('${p3.name}')"><div class="rank-circle" style="background-image:url('${p3.img}');"><div class="rank-badge">3</div></div><div class="podium-name">${p3.name}</div><div class="podium-pts">${p3.currentPts} PTS</div></div>`;
             }
             
-            displayData.forEach((player, index) => {
-                const rank = index + 1; 
+            // 5. Liste
+            displayData.forEach((player) => {
+                // Calcul de la flèche
                 let trendIcon = '<i class="fas fa-minus trend-icon t-stable"></i>';
+                if (player.prevRank !== null) {
+                    if (player.currentRank < player.prevRank) {
+                        trendIcon = '<i class="fas fa-arrow-up trend-icon t-up"></i>'; // Meilleur rang (ex: 2 < 5)
+                    } else if (player.currentRank > player.prevRank) {
+                        trendIcon = '<i class="fas fa-arrow-down trend-icon t-down"></i>';
+                    }
+                }
+
                 const row = document.createElement('div'); row.className = "lb-row"; row.onclick = () => loadProfile(player.name);
-                row.innerHTML = `<div class="col-rank ${rank <=3 ? 'rank-top' : ''}">${rank} ${trendIcon}</div><div class="col-user"><div class="lb-avatar" style="background-image:url('${player.img}');"></div><span class="lb-name">${player.name}</span></div><div class="col-stat">${player.exact}/${player.good}</div><div class="col-stat">${player.gap}</div><div class="col-stat">${player.essais}</div><div class="col-stat">${player.hom}</div><div class="col-pts">${player.currentPts}</div>`;
+                row.innerHTML = `<div class="col-rank ${player.currentRank <=3 ? 'rank-top' : ''}">${player.currentRank} ${trendIcon}</div><div class="col-user"><div class="lb-avatar" style="background-image:url('${player.img}');"></div><span class="lb-name">${player.name}</span></div><div class="col-stat">${player.exact}/${player.good}</div><div class="col-stat">${player.gap}</div><div class="col-stat">${player.essais}</div><div class="col-stat">${player.hom}</div><div class="col-pts">${player.currentPts}</div>`;
                 listContainer.appendChild(row);
             });
         }
+
         function updateLeaderboard(filter, el) {
             document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
             el.classList.add('active'); renderLeaderboard(filter);
         }
+
         function renderResultDetails() {
-            const container = document.getElementById('detail-1'); container.innerHTML = '';
-            // Trie par nom
+            // Rendu J1 (Detail 1)
+            const c1 = document.getElementById('detail-1'); c1.innerHTML = '';
             const sortedPlayers = [...playersDB].sort((a,b) => a.name.localeCompare(b.name));
+            
             sortedPlayers.forEach(p => {
-                const mt = p.matchTest;
-                const html = `
+                if(p.matchJ1.pts === undefined || p.matchJ1.score === "-- - --") return; 
+                const mt = p.matchJ1;
+                c1.innerHTML += `
                 <div class="player-row-complex" onclick="loadProfile('${p.name}')">
                     <div class="p-info"><div class="p-pic" style="background-image:url('${p.img}');"></div><span class="p-name">${p.name}</span></div>
                     <div class="p-data">
                         <div class="score-neutral">${mt.score}</div>
                         <div class="extra-info">
-                            <div class="info-item">🏉 1er Essai: ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png" class="flag-mini">' : (mt.try === 'fj' ? '<img src="https://flagcdn.com/w20/fj.png" class="flag-mini">' : mt.try)}</div>
+                            <div class="info-item">🏉 1er Essai: ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png" class="flag-mini">' : mt.try}</div>
                             <div class="info-item">🏅 HOM: ${mt.hom}</div>
                         </div>
                     </div>
                     <div class="points-box"><span class="pts-val">${mt.pts}</span><span class="pts-label">PTS</span></div>
                 </div>`;
-                container.innerHTML += html;
+            });
+
+            // Rendu J2 (Detail 2)
+            const c2 = document.getElementById('detail-2'); c2.innerHTML = '';
+            sortedPlayers.forEach(p => {
+                if(p.matchJ2.pts === undefined || p.matchJ2.score === "-- - --") return; 
+                const mt = p.matchJ2;
+                c2.innerHTML += `
+                <div class="player-row-complex" onclick="loadProfile('${p.name}')">
+                    <div class="p-info"><div class="p-pic" style="background-image:url('${p.img}');"></div><span class="p-name">${p.name}</span></div>
+                    <div class="p-data">
+                        <div class="score-neutral">${mt.score}</div>
+                        <div class="extra-info">
+                            <div class="info-item">🏉 1er Essai: ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png" class="flag-mini">' : mt.try}</div>
+                            <div class="info-item">🏅 HOM: ${mt.hom}</div>
+                        </div>
+                    </div>
+                    <div class="points-box"><span class="pts-val">${mt.pts}</span><span class="pts-label">PTS</span></div>
+                </div>`;
             });
         }
         
@@ -413,7 +511,8 @@
         function initProfileSelect() {
             const select = document.getElementById('profileSelect'); 
             select.innerHTML = '<option value="reset" selected disabled>Choisir un joueur...</option>';
-            const sortedByRank = [...playersDB].sort((a,b) => getPointsForFilter(b, 'all') - getPointsForFilter(a, 'all'));
+            // On trie pour le select par points total actuel
+            const sortedByRank = [...playersDB].sort((a,b) => getPointsUpTo(b, 1) - getPointsUpTo(a, 1));
             sortedByRank.forEach(p => { let opt = document.createElement('option'); opt.value = p.name; opt.innerHTML = p.name; select.appendChild(opt); });
         }
         function loadProfile(name) {
@@ -434,13 +533,11 @@
             if (name === 'reset') { return; }
             
             const data = playersDB.find(p => p.name === name); if(!data) return;
-            const sortedAll = [...playersDB].sort((a,b) => {
-                if (b.dailyPoints.reduce((x,y)=>x+y) !== a.dailyPoints.reduce((x,y)=>x+y))
-                    return b.dailyPoints.reduce((x,y)=>x+y) - a.dailyPoints.reduce((x,y)=>x+y);
-                return a.gap - b.gap;
-            });
-            const currentRank = sortedAll.findIndex(p => p.name === name) + 1;
-            const currentTotal = getPointsForFilter(data, 'all');
+            
+            // Calculer le rang actuel (J2 = index 1)
+            const currentRanks = getRankingsAtDay(1);
+            const currentRank = currentRanks[name];
+            const currentTotal = getPointsUpTo(data, 1);
             
             select.value = name;
             pName.innerText = name;
@@ -452,24 +549,32 @@
             pHom.innerText = data.hom;
             pAnalysis.innerText = data.analysis;
             
-            const totalPronos = 1; // 1 match joué
+            const totalPronos = 2; // 2 matchs joués
             cpBons.style.setProperty('--c-val', `${(data.good / totalPronos * 100)}%`);
             cpEssais.style.setProperty('--c-val', `${(data.essais / totalPronos * 100)}%`); 
             cpHom.style.setProperty('--c-val', `${(data.hom / totalPronos * 100)}%`); 
 
             historyContainer.innerHTML = '';
-            // Historique Tournoi
-            const mt = data.matchTest;
+            
+            const m1 = data.matchJ1;
+            const m2 = data.matchJ2;
             const htmlHistory = `
                 <div class="recap-row">
                     <div class="recap-info">
-                        <span class="recap-match">France - Irlande</span>
-                        <div class="recap-sub">🏉 ${mt.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png">' : mt.try} 🏅 ${mt.hom}</div>
+                        <span class="recap-match">Galles - France</span>
+                        <div class="recap-sub">🏉 ${m2.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png">' : m2.try} 🏅 ${m2.hom}</div>
                     </div>
-                    <span class="recap-prono">${mt.score}</span>
-                    <span class="recap-pts"><span class="pts-badge-sm">${mt.pts} PTS</span></span>
+                    <span class="recap-prono">${m2.score}</span>
+                    <span class="recap-pts"><span class="pts-badge-sm">${m2.pts} PTS</span></span>
                 </div>
-                <div class="recap-row"><span class="recap-match">Galles - France</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
+                <div class="recap-row">
+                    <div class="recap-info">
+                        <span class="recap-match">France - Irlande</span>
+                        <div class="recap-sub">🏉 ${m1.try === 'fr' ? '<img src="https://flagcdn.com/w20/fr.png">' : m1.try} 🏅 ${m1.hom}</div>
+                    </div>
+                    <span class="recap-prono">${m1.score}</span>
+                    <span class="recap-pts"><span class="pts-badge-sm">${m1.pts} PTS</span></span>
+                </div>
                 <div class="recap-row"><span class="recap-match">France - Italie</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
                 <div class="recap-row"><span class="recap-match">Écosse - France</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
                 <div class="recap-row"><span class="recap-match">France - Angleterre</span><span class="recap-prono">-- - --</span><span class="recap-pts"><span class="pts-pending">À venir</span></span></div>
@@ -482,10 +587,8 @@
             const detail = document.getElementById(id);
             if(detail.classList.contains('open')) { 
                 detail.classList.remove('open'); 
-                // banner.classList.remove('open'); // Optional visual feedback
             } else { 
                 detail.classList.add('open'); 
-                // banner.classList.add('open'); 
             }
         }
 
@@ -498,7 +601,6 @@
         function startTimer() {
             // Timer global qui gère tous les ID de timers
             const timers = [
-                { id: "timer-j2", date: "Feb 15, 2026 16:00:00" },
                 { id: "timer-j3", date: "Feb 22, 2026 16:10:00" },
                 { id: "timer-j4", date: "Mar 08, 2026 16:00:00" },
                 { id: "timer-j5", date: "Mar 14, 2026 21:10:00" }
