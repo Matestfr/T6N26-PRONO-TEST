@@ -325,75 +325,53 @@
     </div>
 
     <script>
-        // --- 1. DATA (Scores J1 & J2 inclus) ---
-        // J1: 36-14 (FR), Essai FR, HOM Guillard (Simulé pour Louis qui avait fait le GC)
-        // J2: 12-54 (FR), Essai FR, HOM Jalibert
-        
+        // --- 1. DATA (Scores J1 & J2 inclus - TOUTES LES STATS SONT DES TABLEAUX POUR FILTRER PAR JOURNEE) ---
+        // Indices des tableaux : [J1, J2, J3, J4, J5]
         const playersDB = [
-            { "name": "Lison Desmeuzes", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 24, "essais": 2, "hom": 0, "img": "images/Lison_Desmeuzes.jpg", "analysis": "Plus précise dans ses analyses que ses pronos, on espère qu'avec deux yeux ça sera mieux.", 
+            { "name": "Lison Desmeuzes", "dailyPoints": [2,2,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [16,8,0,0,0], "essais": [1,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Lison_Desmeuzes.jpg", "analysis": "Plus précise dans ses analyses que ses pronos, on espère qu'avec deux yeux ça sera mieux.", 
                 "matchJ1": { "score": "29 - 23", "pts": 2, "try": "fr", "hom": "LBB" }, 
                 "matchJ2": { "score": "15 - 49", "pts": 2, "try": "fr", "hom": "LBB" } },
-            { "name": "Thibault Montagnon", "dailyPoints": [2,3,0,0,0], "exact": 0, "good": 2, "gap": 17, "essais": 2, "hom": 1, "img": "images/Thibault_Montagnon.jpg", "analysis": "Grand vainqueur de MPG, le flair de Jalibert a payé !", 
+            { "name": "Thibault Montagnon", "dailyPoints": [2,3,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [7,10,0,0,0], "essais": [1,1,0,0,0], "hom": [0,1,0,0,0], "img": "images/Thibault_Montagnon.jpg", "analysis": "Grand vainqueur de MPG, le flair de Jalibert a payé !", 
                 "matchJ1": { "score": "32 - 17", "pts": 2, "try": "fr", "hom": "Jalibert" },
                 "matchJ2": { "score": "12 - 64", "pts": 3, "try": "fr", "hom": "Jalibert" } },
-            { "name": "Maël Kounga", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 17, "essais": 2, "hom": 0, "img": "images/Mael_Kounga.jpg", "analysis": "Passer 4 jours au Stade de France ne l'ont pas aidé pour les pronos, c'est un cas désespére.", 
+            { "name": "Maël Kounga", "dailyPoints": [2,2,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [10,7,0,0,0], "essais": [1,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Mael_Kounga.jpg", "analysis": "Passer 4 jours au Stade de France ne l'ont pas aidé pour les pronos, c'est un cas désespére.", 
                 "matchJ1": { "score": "38 - 22", "pts": 2, "try": "fr", "hom": "Dupont" },
                 "matchJ2": { "score": "12 - 47", "pts": 2, "try": "fr", "hom": "LBB" } },
-            { "name": "Thomas Lesur", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 21, "essais": 2, "hom": 0, "img": "images/Thomas_Lesur.jpg", "analysis": "Big T par ci, Big T par là, on ne serait pas contre un deuxième cheesecake pour le goûter.", 
+            { "name": "Thomas Lesur", "dailyPoints": [2,2,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [15,6,0,0,0], "essais": [1,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Thomas_Lesur.jpg", "analysis": "Big T par ci, Big T par là, on ne serait pas contre un deuxième cheesecake pour le goûter.", 
                 "matchJ1": { "score": "28 - 21", "pts": 2, "try": "fr", "hom": "Ramos" },
                 "matchJ2": { "score": "10 - 46", "pts": 2, "try": "fr", "hom": "LBB" } },
-            { "name": "Henri Dewavrin", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 17, "essais": 1, "hom": 0, "img": "images/Henri_Dewavrin.jpg", "analysis": "Absent pour la J2, il laisse filer le peloton de tête.", 
+            { "name": "Henri Dewavrin", "dailyPoints": [2,0,0,0,0], "exact": [0,0,0,0,0], "good": [1,0,0,0,0], "gap": [17,0,0,0,0], "essais": [1,0,0,0,0], "hom": [0,0,0,0,0], "img": "images/Henri_Dewavrin.jpg", "analysis": "Absent pour la J2, il laisse filer le peloton de tête.", 
                 "matchJ1": { "score": "27 - 22", "pts": 2, "try": "fr", "hom": "Dupont" },
                 "matchJ2": { "score": "-- - --", "pts": 0, "try": "?", "hom": "?" } },
-            { "name": "Cyril Magagnin", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 15, "essais": 2, "hom": 0, "img": "images/Cyril_Magagnin.jpg", "analysis": "Ne pensez pas qu'il vous laissera gagner malgré son congé paternité.", 
+            { "name": "Cyril Magagnin", "dailyPoints": [2,2,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [6,9,0,0,0], "essais": [1,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Cyril_Magagnin.jpg", "analysis": "Ne pensez pas qu'il vous laissera gagner malgré son congé paternité.", 
                 "matchJ1": { "score": "35 - 19", "pts": 2, "try": "fr", "hom": "Jalibert" },
                 "matchJ2": { "score": "14 - 47", "pts": 2, "try": "fr", "hom": "Olivon" } },
-            { "name": "Alexandre Anginot", "dailyPoints": [2,0,0,0,0], "exact": 0, "good": 1, "gap": 8, "essais": 1, "hom": 0, "img": "images/Alexandre_Anginot.jpg", "analysis": "Ses derniers pronos avec nous, prêt à tout pour laisser sa trace de vainqueur.", 
+            { "name": "Alexandre Anginot", "dailyPoints": [2,0,0,0,0], "exact": [0,0,0,0,0], "good": [1,0,0,0,0], "gap": [8,0,0,0,0], "essais": [1,0,0,0,0], "hom": [0,0,0,0,0], "img": "images/Alexandre_Anginot.jpg", "analysis": "Ses derniers pronos avec nous, prêt à tout pour laisser sa trace de vainqueur.", 
                 "matchJ1": { "score": "37 - 21", "pts": 2, "try": "fr", "hom": "LBB" },
                 "matchJ2": { "score": "-- - --", "pts": 0, "try": "?", "hom": "?" } },
-            { "name": "Camille Pedamond", "dailyPoints": [2,3,0,0,0], "exact": 0, "good": 2, "gap": 6, "essais": 2, "hom": 0, "img": "images/Camille_Pedamond.jpg", "analysis": "Bras cassé mais pronos boostés : le bonus d'écart lui rapporte gros !", 
+            { "name": "Camille Pedamond", "dailyPoints": [2,3,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [5,1,0,0,0], "essais": [1,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Camille_Pedamond.jpg", "analysis": "Bras cassé mais pronos boostés : le bonus d'écart lui rapporte gros !", 
                 "matchJ1": { "score": "35 - 18", "pts": 2, "try": "fr", "hom": "Dupont" },
                 "matchJ2": { "score": "10 - 53", "pts": 3, "try": "fr", "hom": "LBB" } },
-            { "name": "Louis Georgeonnet", "dailyPoints": [3,2,0,0,0], "exact": 0, "good": 2, "gap": 13, "essais": 2, "hom": 0, "img": "images/Louis_Georgeonnet.jpg", "analysis": "Le seul à pronostiquer un grand Chelem du Stade Rennais.", 
+            { "name": "Louis Georgeonnet", "dailyPoints": [3,2,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [2,11,0,0,0], "essais": [1,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Louis_Georgeonnet.jpg", "analysis": "Le seul à pronostiquer un grand Chelem du Stade Rennais.", 
                 "matchJ1": { "score": "36 - 16", "pts": 3, "try": "fr", "hom": "Jalibert" },
                 "matchJ2": { "score": "12 - 43", "pts": 2, "try": "fr", "hom": "Dupont" } },
-            { "name": "Emilie Philippe", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 2, "gap": 17, "essais": 2, "hom": 0, "img": "images/Emilie_Philippe.jpg", "analysis": "Attention à vous, Emilie is in Paris et pas pour enfiler des perles !!", 
+            { "name": "Emilie Philippe", "dailyPoints": [2,2,0,0,0], "exact": [0,0,0,0,0], "good": [1,1,0,0,0], "gap": [11,6,0,0,0], "essais": [1,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Emilie_Philippe.jpg", "analysis": "Attention à vous, Emilie is in Paris et pas pour enfiler des perles !!", 
                 "matchJ1": { "score": "33 - 22", "pts": 2, "try": "fr", "hom": "Ollivon" },
                 "matchJ2": { "score": "17 - 53", "pts": 2, "try": "fr", "hom": "LBB" } },
-            { "name": "Clemence Ruth", "dailyPoints": [2,2,0,0,0], "exact": 0, "good": 1, "gap": 7, "essais": 1, "hom": 0, "img": "images/Clemence_Ruth.jpg", "analysis": "Entrée en lice directe, elle ne perd pas de temps.", 
+            { "name": "Clemence Ruth", "dailyPoints": [2,2,0,0,0], "exact": [0,0,0,0,0], "good": [0,1,0,0,0], "gap": [0,7,0,0,0], "essais": [0,1,0,0,0], "hom": [0,0,0,0,0], "img": "images/Clemence_Ruth.jpg", "analysis": "Entrée en lice directe, elle ne perd pas de temps.", 
                 "matchJ1": { "score": "-- - --", "pts": 2, "try": "?", "hom": "?" },
                 "matchJ2": { "score": "12 - 47", "pts": 2, "try": "fr", "hom": "Ramos" } }
         ];
 
         // --- 2. LOGIQUE ---
 
-        // Fonction pour calculer les points jusqu'à un filtre donné
-        function getPointsUpTo(player, dayIndex) { 
-            // dayIndex: 0 = J1, 1 = J2, etc.
-            if(dayIndex < 0) return 0;
-            return player.dailyPoints.slice(0, dayIndex + 1).reduce((a, b) => a + b, 0);
-        }
-
-        // Fonction pour obtenir le classement complet (noms et rangs) pour un jour donné
-        function getRankingsAtDay(dayIndex) {
-            let tempPlayers = playersDB.map(p => {
-                return { name: p.name, pts: getPointsUpTo(p, dayIndex), gap: p.gap }; // Note: gap is static for now, simpler
-            });
-            
-            // Tri: Points Desc, puis Gap Asc
-            tempPlayers.sort((a, b) => {
-                if (b.pts !== a.pts) return b.pts - a.pts;
-                // Si égalité de points, on regarde si les points sont > 0 pour départager au gap
-                if (a.pts > 0) return a.gap - b.gap;
-                return 0;
-            });
-
-            // Map Nom -> Rang
-            let rankMap = {};
-            tempPlayers.forEach((p, index) => {
-                rankMap[p.name] = index + 1;
-            });
-            return rankMap;
+        // Fonction générique pour récupérer la somme (Général) ou la stat d'une journée (J1, J2)
+        function getStat(player, statKey, filter) {
+            if (filter === 'all') {
+                return player[statKey].reduce((a, b) => a + b, 0);
+            }
+            const dayIndex = parseInt(filter.replace('J', '')) - 1;
+            return player[statKey][dayIndex] || 0;
         }
         
         function renderLeaderboard(filter) {
@@ -401,31 +379,51 @@
             const podiumContainer = document.getElementById('podium-container');
             listContainer.innerHTML = ''; podiumContainer.innerHTML = '';
             
-            // 1. Déterminer l'index du jour actuel et du jour précédent
-            let currentDayIdx = 1; // Par défaut 'all' = J2 (index 1)
-            if (filter !== 'all') {
-                currentDayIdx = parseInt(filter.replace('J', '')) - 1;
-            } else {
-                 currentDayIdx = 1; 
-            }
-            
-            const prevDayIdx = currentDayIdx - 1;
-
-            // 2. Calculer les rangs actuels et précédents
-            const currentRanks = getRankingsAtDay(currentDayIdx);
-            const prevRanks = (prevDayIdx >= 0) ? getRankingsAtDay(prevDayIdx) : null;
-
-            // 3. Préparer les données pour l'affichage
+            // 1. Calculer les données spécifiquement pour le filtre choisi
             let displayData = playersDB.map(p => {
                 return { 
                     ...p, 
-                    currentPts: getPointsUpTo(p, currentDayIdx),
-                    currentRank: currentRanks[p.name],
-                    prevRank: (prevRanks) ? prevRanks[p.name] : null
+                    currentPts: getStat(p, 'dailyPoints', filter),
+                    currentExact: getStat(p, 'exact', filter),
+                    currentGood: getStat(p, 'good', filter),
+                    currentGap: getStat(p, 'gap', filter),
+                    currentEssais: getStat(p, 'essais', filter),
+                    currentHom: getStat(p, 'hom', filter)
                 }; 
-            }).sort((a, b) => a.currentRank - b.currentRank);
+            });
 
-            // 4. Podium
+            // Tri principal : Points Descendants. En cas d'égalité, Gap Ascendant (seulement si Pts > 0).
+            displayData.sort((a, b) => {
+                if (b.currentPts !== a.currentPts) return b.currentPts - a.currentPts;
+                if (a.currentPts > 0) return a.currentGap - b.currentGap; 
+                return 0;
+            });
+
+            // Sauvegarder le rang actuel
+            displayData.forEach((p, index) => {
+                p.currentRank = index + 1;
+                p.prevRank = null;
+            });
+
+            // 2. Calculer la tendance (Uniquement valable pour le Général)
+            if (filter === 'all') {
+                // On compare le cumul global avec le classement qui existait à la J1
+                let prevData = playersDB.map(p => {
+                    return { name: p.name, pts: p.dailyPoints[0] || 0, gap: p.gap[0] || 0 };
+                });
+                prevData.sort((a, b) => {
+                    if (b.pts !== a.pts) return b.pts - a.pts;
+                    if (a.pts > 0) return a.gap - b.gap;
+                    return 0;
+                });
+                
+                let prevRankMap = {};
+                prevData.forEach((p, index) => prevRankMap[p.name] = index + 1);
+                
+                displayData.forEach(p => { p.prevRank = prevRankMap[p.name]; });
+            }
+
+            // 3. Podium
             if(displayData.length >= 3) {
                 const p1 = displayData[0]; const p2 = displayData[1]; const p3 = displayData[2];
                 podiumContainer.innerHTML = `
@@ -434,20 +432,22 @@
                     <div class="podium-card rank-3" onclick="loadProfile('${p3.name}')"><div class="rank-circle" style="background-image:url('${p3.img}');"><div class="rank-badge">3</div></div><div class="podium-name">${p3.name}</div><div class="podium-pts">${p3.currentPts} PTS</div></div>`;
             }
             
-            // 5. Liste
+            // 4. Liste
             displayData.forEach((player) => {
-                // Calcul de la flèche
                 let trendIcon = '<i class="fas fa-minus trend-icon t-stable"></i>';
-                if (player.prevRank !== null) {
+                
+                if (filter === 'all' && player.prevRank !== null) {
                     if (player.currentRank < player.prevRank) {
-                        trendIcon = '<i class="fas fa-arrow-up trend-icon t-up"></i>'; // Meilleur rang (ex: 2 < 5)
+                        trendIcon = '<i class="fas fa-arrow-up trend-icon t-up"></i>';
                     } else if (player.currentRank > player.prevRank) {
                         trendIcon = '<i class="fas fa-arrow-down trend-icon t-down"></i>';
                     }
+                } else if (filter !== 'all') {
+                    trendIcon = ''; // Pas de flèche sur les classements intermédiaires (J1, J2)
                 }
 
                 const row = document.createElement('div'); row.className = "lb-row"; row.onclick = () => loadProfile(player.name);
-                row.innerHTML = `<div class="col-rank ${player.currentRank <=3 ? 'rank-top' : ''}">${player.currentRank} ${trendIcon}</div><div class="col-user"><div class="lb-avatar" style="background-image:url('${player.img}');"></div><span class="lb-name">${player.name}</span></div><div class="col-stat">${player.exact}/${player.good}</div><div class="col-stat">${player.gap}</div><div class="col-stat">${player.essais}</div><div class="col-stat">${player.hom}</div><div class="col-pts">${player.currentPts}</div>`;
+                row.innerHTML = `<div class="col-rank ${player.currentRank <=3 ? 'rank-top' : ''}">${player.currentRank} ${trendIcon}</div><div class="col-user"><div class="lb-avatar" style="background-image:url('${player.img}');"></div><span class="lb-name">${player.name}</span></div><div class="col-stat">${player.currentExact}/${player.currentGood}</div><div class="col-stat">${player.currentGap}</div><div class="col-stat">${player.currentEssais}</div><div class="col-stat">${player.currentHom}</div><div class="col-pts">${player.currentPts}</div>`;
                 listContainer.appendChild(row);
             });
         }
@@ -515,8 +515,7 @@
         function initProfileSelect() {
             const select = document.getElementById('profileSelect'); 
             select.innerHTML = '<option value="reset" selected disabled>Choisir un joueur...</option>';
-            // On trie pour le select par points total actuel
-            const sortedByRank = [...playersDB].sort((a,b) => getPointsUpTo(b, 1) - getPointsUpTo(a, 1));
+            const sortedByRank = [...playersDB].sort((a,b) => getStat(b, 'dailyPoints', 'all') - getStat(a, 'dailyPoints', 'all'));
             sortedByRank.forEach(p => { let opt = document.createElement('option'); opt.value = p.name; opt.innerHTML = p.name; select.appendChild(opt); });
         }
         function loadProfile(name) {
@@ -538,25 +537,41 @@
             
             const data = playersDB.find(p => p.name === name); if(!data) return;
             
-            // Calculer le rang actuel (J2 = index 1)
-            const currentRanks = getRankingsAtDay(1);
-            const currentRank = currentRanks[name];
-            const currentTotal = getPointsUpTo(data, 1);
+            const currentTotal = getStat(data, 'dailyPoints', 'all');
+            
+            // Calculer le rang actuel au Général
+            let tempPlayers = playersDB.map(p => ({ 
+                name: p.name, 
+                pts: getStat(p, 'dailyPoints', 'all'), 
+                gap: getStat(p, 'gap', 'all') 
+            }));
+            tempPlayers.sort((a, b) => {
+                if (b.pts !== a.pts) return b.pts - a.pts;
+                if (a.pts > 0) return a.gap - b.gap;
+                return 0;
+            });
+            const currentRank = tempPlayers.findIndex(p => p.name === name) + 1;
             
             select.value = name;
             pName.innerText = name;
             pAvatar.style.backgroundImage = `url('${data.img}')`;
             pTotal.innerText = currentTotal;
             pRank.innerText = currentRank;
-            pBons.innerText = data.good;
-            pEssais.innerText = data.essais;
-            pHom.innerText = data.hom;
+            
+            // Affichage dans les stats de profil (Cumul)
+            const globalGood = getStat(data, 'good', 'all');
+            const globalEssais = getStat(data, 'essais', 'all');
+            const globalHom = getStat(data, 'hom', 'all');
+
+            pBons.innerText = globalGood;
+            pEssais.innerText = globalEssais;
+            pHom.innerText = globalHom;
             pAnalysis.innerText = data.analysis;
             
             const totalPronos = 2; // 2 matchs joués
-            cpBons.style.setProperty('--c-val', `${(data.good / totalPronos * 100)}%`);
-            cpEssais.style.setProperty('--c-val', `${(data.essais / totalPronos * 100)}%`); 
-            cpHom.style.setProperty('--c-val', `${(data.hom / totalPronos * 100)}%`); 
+            cpBons.style.setProperty('--c-val', `${(globalGood / totalPronos * 100)}%`);
+            cpEssais.style.setProperty('--c-val', `${(globalEssais / totalPronos * 100)}%`); 
+            cpHom.style.setProperty('--c-val', `${(globalHom / totalPronos * 100)}%`); 
 
             historyContainer.innerHTML = '';
             
